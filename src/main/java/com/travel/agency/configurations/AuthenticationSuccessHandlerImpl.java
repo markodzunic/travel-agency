@@ -25,7 +25,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         if (authorities.contains(ADMIN_AUTHORITY)) {
             redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/admin");
         } else {
-            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/");
+            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/admin");
         }
     }
 }

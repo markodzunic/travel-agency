@@ -24,5 +24,15 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+	
+	public User findByName(String username, String password) {
+		try {
+			return (User) genericDAO.getManager().createNativeQuery(
+				"SELECT * FROM users WHERE username=:username AND password=:sifra", User.class)
+				.setParameter("username", username).setParameter("sifra", password).getSingleResult();
+		} catch (NoResultException nre){
+			return null;
+		}
+	}
 
 }
