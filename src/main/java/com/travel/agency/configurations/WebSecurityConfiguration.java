@@ -20,6 +20,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.travel.agency.services.UserService;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -27,8 +29,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired 
     private AuthenticationSuccessHandler authenticationSuccessHandler;
     
-//    @Autowired
-//    KorisnikService korisnikService;
+    @Autowired
+    UserService userService;
     
 	@Value("${spring.queries.users-query}")
 	private String usersQuery;
@@ -59,18 +61,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//    	auth.userDetailsService(new UserDetailsService() {
-//    		
-//    		public UserDetails loadUserByUsername(String username) 
-//    			throws UsernameNotFoundException {
-//    				Korisnik activeUserInfo = korisnikService.findByName2(username);
-//    				GrantedAuthority authority = new SimpleGrantedAuthority("admin");
-//    				UserDetails userDetails = (UserDetails)new User(activeUserInfo.getKorisnickoIme(),
-//    						activeUserInfo.getSifra(), Arrays.asList(authority));
-//    				
-//    				return userDetails;
-//    		}
-//    	});
+    	auth.userDetailsService(new UserDetailsService() {
+    		
+    		public UserDetails loadUserByUsername(String username) 
+    			throws UsernameNotFoundException {
+    				com.travel.agency.entities.User activeUserInfo = userService.findByUsername(username);
+    				GrantedAuthority authority = new SimpleGrantedAuthority("admin");
+    				UserDetails userDetails = (UserDetails)new User(activeUserInfo.getUsername(),
+    						activeUserInfo.getPassword(), Arrays.asList(authority));
+    				
+    				return userDetails;
+    		}
+    	});
     }
     
     @Bean
