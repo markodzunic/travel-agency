@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+	<head th:replace="layouts/fragments/header :: header"></head>
+	<body class="login">
+		 <div>
+		    <a class="hiddenanchor" id="signup"></a>
+		    <a class="hiddenanchor" id="signin"></a>
+		    
+			<div class="login_wrapper" layout:fragment="content"></div>
+		</div>
+	</body>
+</html>
