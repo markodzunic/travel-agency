@@ -15,7 +15,7 @@ import java.util.Collection;
 
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
 
-    private static final SimpleGrantedAuthority ADMIN_AUTHORITY = new SimpleGrantedAuthority("ROLE_ADMIN");
+    private static final SimpleGrantedAuthority ADMIN_AUTHORITY = new SimpleGrantedAuthority("admin");
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
