@@ -24,7 +24,7 @@ public class LoginController {
 	
 	@GetMapping("/login")
     public String viewLogin() {
-        return "login/login";
+        return "login/login-form";
     }
 	
 	@PostMapping("login")
@@ -39,13 +39,13 @@ public class LoginController {
 		}	
 	
 		model.addAttribute("error", "Wrong Credentials");
-		return "login/login";
+		return "login/login-form";
 	}
 	
 	@GetMapping("logout")
 	public String logout(Model model) {
 		session.invalidate();
 		model.addAttribute("logout", "Logut");
-		return "login/login";
+		return "login/login-form";
 	}
 }
