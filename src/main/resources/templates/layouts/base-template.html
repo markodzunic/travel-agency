@@ -7,7 +7,15 @@
 <body class="nav-md">
 	
 	<div class="container body" >
-		<div class="main_container" layout:fragment="content"></div>
+		<div class="main_container">
+			<div th:replace="layouts/fragments/navigation :: navigation" class="col-md-3 left_col"></div>
+			
+			<div th:replace="layouts/fragments/navigation-top :: navigation-top" class="top_nav"></div>
+			
+			<div class="right_col" role="main" layout:fragment="content"></div>
+			
+			<footer th:replace="layouts/fragments/footer :: footer"></footer>
+		</div>
 	</div>
 	
 	<!-- jQuery -->
