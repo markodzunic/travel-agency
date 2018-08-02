@@ -12,7 +12,21 @@ import java.util.List;
  */
 @Entity
 @Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllUsers",
+            query   =   "SELECT * " +
+                        "FROM users",
+                        resultClass=User.class
+    ),
+    @NamedNativeQuery(
+            name    =   "getAllByIdUser",
+            query   =   "SELECT * " +
+                        "FROM users " +
+                        "WHERE id = :id",
+                        resultClass=User.class
+    )
+})
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 

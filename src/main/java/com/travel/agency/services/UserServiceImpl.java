@@ -1,5 +1,7 @@
 package com.travel.agency.services;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,31 @@ public class UserServiceImpl implements UserService {
 	private GenericDAO<User> genericDAO;
 	
 	@Override
+	public List<User> findAll() {
+		return genericDAO.findAll(User.class);
+	}
+
+	@Override
+	public User readById(Integer id) {
+		return genericDAO.readById(User.class, "id", id);
+	}
+
+	@Override
+	public boolean delete(User obj) {
+		return genericDAO.delete(obj);
+	}
+
+	@Override
+	public User save(User obj) {
+		return genericDAO.save(obj);
+	}
+
+	@Override
+	public User update(User obj) {
+		return genericDAO.update(obj);
+	}
+
+	@Override
 	public User findByUsername(String username) {
 		try {
 			return (User) genericDAO.getManager().createNativeQuery(
@@ -25,6 +52,7 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
+	@Override
 	public User findByName(String username, String password) {
 		try {
 			return (User) genericDAO.getManager().createNativeQuery(
