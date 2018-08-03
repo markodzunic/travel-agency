@@ -34,6 +34,15 @@ public class GenericDAOImpl<T> implements GenericDAO<T>{
                 .getSingleResult();
 		return kategorija;
 	}
+	
+	
+	@Override
+	public List<T> findByField(Class<T> c, String nameColumn, String value) {
+		List <T> kategorije = manager.createNamedQuery("getAllByField"+ c.getSimpleName(), c)
+				.setParameter("value", value).setParameter("nameColumn", nameColumn)
+				.getResultList();
+		return kategorije;
+	}
 
 	@Override
 	public T update(T obj) {
@@ -70,5 +79,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T>{
         }
         return obj;
 	}
+
+
 
 }

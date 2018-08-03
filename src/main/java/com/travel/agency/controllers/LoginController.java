@@ -30,7 +30,7 @@ public class LoginController {
 	@PostMapping("login")
 	public String processLogin(HttpServletRequest request, Model model, User korisnik) {
 
-		korisnik = korisnikService.findByName(request.getParameter("username"), request.getParameter("password"));
+		korisnik = korisnikService.findByUsernamePassword(request.getParameter("username"), request.getParameter("password"));
 		
 		if (!BikeUtils.isEmpty(korisnik)) {
 			session.setAttribute("user", korisnik);

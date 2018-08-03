@@ -18,5 +18,11 @@ public interface UserService {
 	
 	public User findByUsername(String username);
 	
-	public User findByName(String username, String password);
+	public User findByUsernamePassword(String username, String password);
+
+	public User findUserByEmail(String email);
+
+	public User findUserByField(String field);
+	
+	public List<User> findAllByRole(String role);
 }
