@@ -22,4 +22,7 @@ public interface GenericDAO <T>{
     
     // save row to db 
 	T save(T obj); 
+	
+
+	List<T> findByField(Class<T> c, String nameColumn, String value);
 }

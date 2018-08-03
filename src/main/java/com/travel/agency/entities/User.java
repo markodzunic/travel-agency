@@ -20,12 +20,19 @@ import java.util.List;
                         resultClass=User.class
     ),
     @NamedNativeQuery(
-            name    =   "getAllByIdUser",
+            name	=   "getAllByIdUser",
             query   =   "SELECT * " +
                         "FROM users " +
                         "WHERE id = :id",
                         resultClass=User.class
-    )
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldUser",
+    		query	=	"SELECT *"+
+    					"FROM users"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=User.class
+	)
 })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -6,7 +6,6 @@ import javax.persistence.NoResultException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import com.travel.agency.dao.GenericDAO;
 import com.travel.agency.entities.User;
 
@@ -53,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User findByName(String username, String password) {
+	public User findByUsernamePassword(String username, String password) {
 		try {
 			return (User) genericDAO.getManager().createNativeQuery(
 				"SELECT * FROM users WHERE username=:username AND password=:sifra", User.class)
@@ -62,5 +61,46 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+		
+	
+	@Override
+	public User findUserByEmail(String email) {
+		try {
+			return (User) genericDAO.getManager().createNativeQuery(
+				"SELECT * FROM user WHERE email=:email", User.class)
+				.setParameter("email", email).getSingleResult();
+		} catch (NoResultException nre){
+			return null;
+		}
+	}
+	
+	
+	@Override
+	public User findUserByField(String field) {
+		try {
+			return (User) genericDAO.getManager().createNativeQuery(
+				"SELECT * FROM user WHERE field=:field", User.class)
+				.setParameter("field", field).getSingleResult();
+		} catch (NoResultException nre){
+			return null;
+		}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<User> findAllByRole(String role) {
+		try {
+			return genericDAO.getManager().createNativeQuery(
+				"SELECT * FROM user INNER JOIN roles ON roles.id=user.roles_id WHERE roles.system_name=:roles", User.class)
+				.setParameter("roles", role).getResultList();
+		} catch (NoResultException nre){
+			return null;
+		}
+	}
 
+	
+	
+
+	
+	
 }
