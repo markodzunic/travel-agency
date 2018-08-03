@@ -11,7 +11,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="companies")
-@NamedQuery(name="Company.findAll", query="SELECT c FROM Company c")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllCompany",
+            query   =   "SELECT * " +
+                        "FROM companies",
+                        resultClass=Company.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdCompany",
+            query   =   "SELECT * " +
+                        "FROM companies " +
+                        "WHERE id = :id",
+                        resultClass=Company.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldCompany",
+    		query	=	"SELECT *"+
+    					"FROM companies"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=Company.class
+	)
+})
 public class Company implements Serializable {
 	private static final long serialVersionUID = 1L;
 

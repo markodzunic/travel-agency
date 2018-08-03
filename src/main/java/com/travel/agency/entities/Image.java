@@ -11,7 +11,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="images")
-@NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllImage",
+            query   =   "SELECT * " +
+                        "FROM images",
+                        resultClass=Image.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdImage",
+            query   =   "SELECT * " +
+                        "FROM images " +
+                        "WHERE id = :id",
+                        resultClass=Image.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldImage",
+    		query	=	"SELECT *"+
+    					"FROM images"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=Image.class
+	)
+})
 public class Image implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -10,7 +10,28 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Wishlist.findAll", query="SELECT w FROM Wishlist w")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllWishlist",
+            query   =   "SELECT * " +
+                        "FROM wishlist",
+                        resultClass=Wishlist.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdWishlist",
+            query   =   "SELECT * " +
+                        "FROM wishlist " +
+                        "WHERE id = :id",
+                        resultClass=Wishlist.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldWishlist",
+    		query	=	"SELECT *"+
+    					"FROM wishlist"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=Wishlist.class
+	)
+})
 public class Wishlist implements Serializable {
 	private static final long serialVersionUID = 1L;
 
