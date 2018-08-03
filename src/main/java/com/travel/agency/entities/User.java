@@ -3,6 +3,7 @@ package com.travel.agency.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -68,12 +69,22 @@ public class User implements Serializable {
 
 	private String phone;
 
-	@Column(name="roles_id")
-	private int rolesId;
-
 	private String state;
 
 	private String username;
+
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="user")
+	private List<Order> orders;
+
+	//bi-directional many-to-one association to Role
+	@ManyToOne
+	@JoinColumn(name="roles_id")
+	private Role role;
+
+	//bi-directional many-to-one association to Wishlist
+	@OneToMany(mappedBy="user")
+	private List<Wishlist> wishlists;
 
 	public User() {
 	}
@@ -190,14 +201,6 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public int getRolesId() {
-		return this.rolesId;
-	}
-
-	public void setRolesId(int rolesId) {
-		this.rolesId = rolesId;
-	}
-
 	public String getState() {
 		return this.state;
 	}
@@ -212,6 +215,58 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Order addOrder(Order order) {
+		getOrders().add(order);
+		order.setUser(this);
+
+		return order;
+	}
+
+	public Order removeOrder(Order order) {
+		getOrders().remove(order);
+		order.setUser(null);
+
+		return order;
+	}
+
+	public Role getRole() {
+		return this.role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public List<Wishlist> getWishlists() {
+		return this.wishlists;
+	}
+
+	public void setWishlists(List<Wishlist> wishlists) {
+		this.wishlists = wishlists;
+	}
+
+	public Wishlist addWishlist(Wishlist wishlist) {
+		getWishlists().add(wishlist);
+		wishlist.setUser(this);
+
+		return wishlist;
+	}
+
+	public Wishlist removeWishlist(Wishlist wishlist) {
+		getWishlists().remove(wishlist);
+		wishlist.setUser(null);
+
+		return wishlist;
 	}
 
 }
