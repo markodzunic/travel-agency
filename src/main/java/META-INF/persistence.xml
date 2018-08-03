@@ -12,11 +12,11 @@
 		<class>com.travel.agency.entities.Order</class>
 		<class>com.travel.agency.entities.Role</class>
 		<class>com.travel.agency.entities.SubtypeRoom</class>
-		<class>com.travel.agency.entities.SubtypeService</class>
 		<class>com.travel.agency.entities.Transport</class>
-		<class>com.travel.agency.entities.Type</class>
 		<class>com.travel.agency.entities.User</class>
 		<class>com.travel.agency.entities.Wishlist</class>
 		<class>com.travel.agency.entities.WishlistApartment</class>
+		<class>com.travel.agency.entities.SubtypeService</class>
+		<class>com.travel.agency.entities.Type</class>
 	</persistence-unit>
 </persistence>
