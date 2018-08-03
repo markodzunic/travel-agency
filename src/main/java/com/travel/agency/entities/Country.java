@@ -11,7 +11,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="countries")
-@NamedQuery(name="Country.findAll", query="SELECT c FROM Country c")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllCountry",
+            query   =   "SELECT * " +
+                        "FROM countries",
+                        resultClass=Country.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdCountry",
+            query   =   "SELECT * " +
+                        "FROM countries " +
+                        "WHERE id = :id",
+                        resultClass=Country.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldCountry",
+    		query	=	"SELECT *"+
+    					"FROM countries"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=Country.class
+	)
+})
 public class Country implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 	public User findUserByEmail(String email) {
 		try {
 			return (User) genericDAO.getManager().createNativeQuery(
-				"SELECT * FROM user WHERE email=:email", User.class)
+				"SELECT * FROM users WHERE email=:email", User.class)
 				.setParameter("email", email).getSingleResult();
 		} catch (NoResultException nre){
 			return null;
@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 	public User findUserByField(String field) {
 		try {
 			return (User) genericDAO.getManager().createNativeQuery(
-				"SELECT * FROM user WHERE field=:field", User.class)
+				"SELECT * FROM users WHERE field=:field", User.class)
 				.setParameter("field", field).getSingleResult();
 		} catch (NoResultException nre){
 			return null;
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAllByRole(String role) {
 		try {
 			return genericDAO.getManager().createNativeQuery(
-				"SELECT * FROM user INNER JOIN roles ON roles.id=user.roles_id WHERE roles.system_name=:roles", User.class)
+				"SELECT * FROM users INNER JOIN roles ON roles.id=users.roles_id WHERE roles.system_name=:roles", User.class)
 				.setParameter("roles", role).getResultList();
 		} catch (NoResultException nre){
 			return null;
