@@ -11,7 +11,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="subtype_rooms")
-@NamedQuery(name="SubtypeRoom.findAll", query="SELECT s FROM SubtypeRoom s")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllSubtypeRoom",
+            query   =   "SELECT * " +
+                        "FROM subtype_rooms",
+                        resultClass=SubtypeRoom.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdSubtypeRoom",
+            query   =   "SELECT * " +
+                        "FROM subtype_rooms " +
+                        "WHERE id = :id",
+                        resultClass=SubtypeRoom.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldSubtypeRoom",
+    		query	=	"SELECT *"+
+    					"FROM subtype_rooms"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=SubtypeRoom.class
+	)
+})
 public class SubtypeRoom implements Serializable {
 	private static final long serialVersionUID = 1L;
 

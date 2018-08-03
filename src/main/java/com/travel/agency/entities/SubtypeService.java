@@ -10,7 +10,28 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="subtype_services")
-@NamedQuery(name="SubtypeService.findAll", query="SELECT s FROM SubtypeService s")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllSubtypeService",
+            query   =   "SELECT * " +
+                        "FROM subtype_services",
+                        resultClass=SubtypeService.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdSubtypeService",
+            query   =   "SELECT * " +
+                        "FROM subtype_services " +
+                        "WHERE id = :id",
+                        resultClass=SubtypeService.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldSubtypeService",
+    		query	=	"SELECT *"+
+    					"FROM subtype_services"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=SubtypeService.class
+	)
+})
 public class SubtypeService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
