@@ -11,7 +11,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="cities")
-@NamedQuery(name="City.findAll", query="SELECT c FROM City c")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllCity",
+            query   =   "SELECT * " +
+                        "FROM cities",
+                        resultClass=City.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdCity",
+            query   =   "SELECT * " +
+                        "FROM cities " +
+                        "WHERE id = :id",
+                        resultClass=City.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldCity",
+    		query	=	"SELECT *"+
+    					"FROM cities"+
+    					"WHERE :nameColumn = :value",
+    					resultClass=City.class
+	)
+})
 public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
