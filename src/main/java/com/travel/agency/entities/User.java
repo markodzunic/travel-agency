@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name="users")
 @NamedNativeQueries({
     @NamedNativeQuery(
-            name    =   "getAllUsers",
+            name    =   "getAllUser",
             query   =   "SELECT * " +
                         "FROM users",
                         resultClass=User.class
