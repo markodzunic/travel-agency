@@ -26,8 +26,8 @@ import javax.persistence.*;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldType",
-    		query	=	"SELECT *"+
-    					"FROM types"+
+    		query	=	"SELECT * "+
+    					"FROM types "+
     					"WHERE :nameColumn = :value",
     					resultClass=Type.class
 	)

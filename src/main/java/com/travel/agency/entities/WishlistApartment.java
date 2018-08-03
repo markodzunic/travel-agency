@@ -1,3 +1,4 @@
+
 package com.travel.agency.entities;
 
 import java.io.Serializable;

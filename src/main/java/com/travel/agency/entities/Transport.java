@@ -27,8 +27,8 @@ import java.util.List;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldTransport",
-    		query	=	"SELECT *"+
-    					"FROM transports"+
+    		query	=	"SELECT * "+
+    					"FROM transports "+
     					"WHERE :nameColumn = :value",
     					resultClass=Transport.class
 	)

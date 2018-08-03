@@ -27,8 +27,8 @@ import java.util.Date;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldOrder",
-    		query	=	"SELECT *"+
-    					"FROM orders"+
+    		query	=	"SELECT * "+
+    					"FROM orders "+
     					"WHERE :nameColumn = :value",
     					resultClass=Order.class
 	)

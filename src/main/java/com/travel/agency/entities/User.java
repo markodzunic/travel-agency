@@ -27,8 +27,8 @@ import java.util.Date;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldUser",
-    		query	=	"SELECT *"+
-    					"FROM users"+
+    		query	=	"SELECT * "+
+    					"FROM users "+
     					"WHERE :nameColumn = :value",
     					resultClass=User.class
 	)

@@ -26,8 +26,8 @@ import java.util.List;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldWishlist",
-    		query	=	"SELECT *"+
-    					"FROM wishlist"+
+    		query	=	"SELECT * "+
+    					"FROM wishlist "+
     					"WHERE :nameColumn = :value",
     					resultClass=Wishlist.class
 	)

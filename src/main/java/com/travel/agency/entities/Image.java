@@ -27,8 +27,8 @@ import java.util.List;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldImage",
-    		query	=	"SELECT *"+
-    					"FROM images"+
+    		query	=	"SELECT * "+
+    					"FROM images "+
     					"WHERE :nameColumn = :value",
     					resultClass=Image.class
 	)

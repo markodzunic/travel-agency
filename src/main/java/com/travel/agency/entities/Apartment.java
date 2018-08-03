@@ -29,7 +29,7 @@ import java.util.List;
     @NamedNativeQuery(
     		name	=	"getAllByFieldApartment",
     		query	=	"SELECT *"+
-    					"FROM apartments"+
+    					"FROM apartments "+
     					"WHERE :nameColumn = :value",
     					resultClass=Apartment.class
 	)

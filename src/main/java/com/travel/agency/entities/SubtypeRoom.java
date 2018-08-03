@@ -27,8 +27,8 @@ import java.util.List;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldSubtypeRoom",
-    		query	=	"SELECT *"+
-    					"FROM subtype_rooms"+
+    		query	=	"SELECT * "+
+    					"FROM subtype_rooms "+
     					"WHERE :nameColumn = :value",
     					resultClass=SubtypeRoom.class
 	)

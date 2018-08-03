@@ -26,8 +26,8 @@ import javax.persistence.*;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldRole",
-    		query	=	"SELECT *"+
-    					"FROM roles"+
+    		query	=	"SELECT * "+
+    					"FROM roles "+
     					"WHERE :nameColumn = :value",
     					resultClass=Role.class
 	)

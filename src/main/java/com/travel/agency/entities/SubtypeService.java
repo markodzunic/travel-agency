@@ -26,8 +26,8 @@ import javax.persistence.*;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldSubtypeService",
-    		query	=	"SELECT *"+
-    					"FROM subtype_services"+
+    		query	=	"SELECT * "+
+    					"FROM subtype_services "+
     					"WHERE :nameColumn = :value",
     					resultClass=SubtypeService.class
 	)

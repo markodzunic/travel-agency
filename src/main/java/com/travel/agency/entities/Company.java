@@ -27,8 +27,8 @@ import java.util.List;
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldCompany",
-    		query	=	"SELECT *"+
-    					"FROM companies"+
+    		query	=	"SELECT * "+
+    					"FROM companies "+
     					"WHERE :nameColumn = :value",
     					resultClass=Company.class
 	)
