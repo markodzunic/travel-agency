@@ -12,7 +12,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="apartments")
-@NamedQuery(name="Apartment.findAll", query="SELECT a FROM Apartment a")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllApartment",
+            query   =   "SELECT * " +
+                        "FROM apartments",
+                        resultClass=Apartment.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdApartment",
+            query   =   "SELECT * " +
+                        "FROM apartments " +
+                        "WHERE id = :id",
+                        resultClass=Apartment.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldApartment",
+    		query	=	"SELECT *"+
+    					"FROM apartments "+
+    					"WHERE :nameColumn = :value",
+    					resultClass=Apartment.class
+	)
+})
 public class Apartment implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,6 @@ package com.travel.agency.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -11,7 +10,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="roles")
-@NamedQuery(name="Role.findAll", query="SELECT r FROM Role r")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllRole",
+            query   =   "SELECT * " +
+                        "FROM roles",
+                        resultClass=Role.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdRole",
+            query   =   "SELECT * " +
+                        "FROM roles " +
+                        "WHERE id = :id",
+                        resultClass=Role.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldRole",
+    		query	=	"SELECT * "+
+    					"FROM roles "+
+    					"WHERE :nameColumn = :value",
+    					resultClass=Role.class
+	)
+})
 public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,10 +42,6 @@ public class Role implements Serializable {
 
 	@Column(name="system_name")
 	private String systemName;
-
-	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="role")
-	private List<User> users;
 
 	public Role() {
 	}
@@ -52,28 +68,6 @@ public class Role implements Serializable {
 
 	public void setSystemName(String systemName) {
 		this.systemName = systemName;
-	}
-
-	public List<User> getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setRole(this);
-
-		return user;
-	}
-
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setRole(null);
-
-		return user;
 	}
 
 }

@@ -28,7 +28,7 @@ import java.util.List;
     @NamedNativeQuery(
     		name	=	"getAllByFieldCity",
     		query	=	"SELECT *"+
-    					"FROM cities"+
+    					"FROM cities "+
     					"WHERE :nameColumn = :value",
     					resultClass=City.class
 	)

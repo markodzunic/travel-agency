@@ -2,7 +2,6 @@ package com.travel.agency.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -11,7 +10,28 @@ import java.util.List;
  */
 @Entity
 @Table(name="subtype_services")
-@NamedQuery(name="SubtypeService.findAll", query="SELECT s FROM SubtypeService s")
+@NamedNativeQueries({
+    @NamedNativeQuery(
+            name    =   "getAllSubtypeService",
+            query   =   "SELECT * " +
+                        "FROM subtype_services",
+                        resultClass=SubtypeService.class
+    ),
+    @NamedNativeQuery(
+            name	=   "getAllByIdSubtypeService",
+            query   =   "SELECT * " +
+                        "FROM subtype_services " +
+                        "WHERE id = :id",
+                        resultClass=SubtypeService.class
+    ),
+    @NamedNativeQuery(
+    		name	=	"getAllByFieldSubtypeService",
+    		query	=	"SELECT * "+
+    					"FROM subtype_services "+
+    					"WHERE :nameColumn = :value",
+    					resultClass=SubtypeService.class
+	)
+})
 public class SubtypeService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,13 +40,8 @@ public class SubtypeService implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Apartment
-	@OneToMany(mappedBy="subtypeService")
-	private List<Apartment> apartments;
-
-	//bi-directional many-to-one association to Type
-	@ManyToOne
-	private Type type;
+	@Column(name="type_id")
+	private int typeId;
 
 	public SubtypeService() {
 	}
@@ -47,34 +62,12 @@ public class SubtypeService implements Serializable {
 		this.name = name;
 	}
 
-	public List<Apartment> getApartments() {
-		return this.apartments;
+	public int getTypeId() {
+		return this.typeId;
 	}
 
-	public void setApartments(List<Apartment> apartments) {
-		this.apartments = apartments;
-	}
-
-	public Apartment addApartment(Apartment apartment) {
-		getApartments().add(apartment);
-		apartment.setSubtypeService(this);
-
-		return apartment;
-	}
-
-	public Apartment removeApartment(Apartment apartment) {
-		getApartments().remove(apartment);
-		apartment.setSubtypeService(null);
-
-		return apartment;
-	}
-
-	public Type getType() {
-		return this.type;
-	}
-
-	public void setType(Type type) {
-		this.type = type;
+	public void setTypeId(int typeId) {
+		this.typeId = typeId;
 	}
 
 }
