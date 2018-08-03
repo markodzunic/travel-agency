@@ -1438,7 +1438,7 @@ function init_DataTables() {
             keys: !0
         }
         ),
-        $("#datatable-responsive").DataTable(),
+        
         $("#datatable-scroller").DataTable( {
             ajax: "js/datatables/json/scroller-demo.json", deferRender: !0, scrollY: 380, scrollCollapse: !0, scroller: !0
         }

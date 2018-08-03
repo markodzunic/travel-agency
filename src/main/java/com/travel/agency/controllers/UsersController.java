@@ -2,6 +2,8 @@ package com.travel.agency.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,5 +35,18 @@ public class UsersController {
 		model.addAttribute("user", user);
 		
 		return "users/user-profile";
+	}
+	
+	@RequestMapping("users/delete")
+	public String delete(HttpServletRequest request, Model model) {
+		User user = userService.readById(2);
+
+//		if (request.getMethod() == "GET") {
+			model.addAttribute("user", user);	
+			return "users/user-dialog";
+//		} else {
+//			userService.delete(user);
+//			return "redirect: /users";
+//		}
 	}
 }
