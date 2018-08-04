@@ -3,6 +3,7 @@ package com.travel.agency.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -54,8 +55,14 @@ public class Order implements Serializable {
 	@Column(name="total_price")
 	private double totalPrice;
 
-	@Column(name="users_id")
-	private int usersId;
+	//bi-directional many-to-one association to OrderApartment
+	@OneToMany(mappedBy="order")
+	private List<OrderApartment> orderApartments;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="users_id")
+	private User user;
 
 	public Order() {
 	}
@@ -108,12 +115,34 @@ public class Order implements Serializable {
 		this.totalPrice = totalPrice;
 	}
 
-	public int getUsersId() {
-		return this.usersId;
+	public List<OrderApartment> getOrderApartments() {
+		return this.orderApartments;
 	}
 
-	public void setUsersId(int usersId) {
-		this.usersId = usersId;
+	public void setOrderApartments(List<OrderApartment> orderApartments) {
+		this.orderApartments = orderApartments;
+	}
+
+	public OrderApartment addOrderApartment(OrderApartment orderApartment) {
+		getOrderApartments().add(orderApartment);
+		orderApartment.setOrder(this);
+
+		return orderApartment;
+	}
+
+	public OrderApartment removeOrderApartment(OrderApartment orderApartment) {
+		getOrderApartments().remove(orderApartment);
+		orderApartment.setOrder(null);
+
+		return orderApartment;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

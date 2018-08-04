@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="transports")
+
 @NamedNativeQueries({
     @NamedNativeQuery(
             name    =   "getAllTransport",
