@@ -39,7 +39,7 @@ public class UsersController {
 	
 	@RequestMapping("users/delete")
 	public String delete(HttpServletRequest request, Model model) {
-		User user = userService.readById(2);
+		User user = userService.readById(1);    //napraviti dinamicki
 
 //		if (request.getMethod() == "GET") {
 			model.addAttribute("user", user);	
