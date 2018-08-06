@@ -5,9 +5,30 @@ var Users = {
 	        });
 		},
 		
-		Delete: function (el) {
-			var id = $(el).attr("user-id");
+		Refresh: function(el) {	
+			App.loadAjax();
 			
+			$.ajax({
+				type: "POST",
+				async: true,
+				url: '/users/refresh',
+				dataType: 'html',
+				success:function(result){
+					//$('#datatable-responsive_wrapper').remove();
+					$('#users-table').html(result);
+					
+					$("#datatable-responsive").DataTable({
+			        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [9]}]
+			        });
+					
+					App.loadAjax('unmask');
+				}
+			});
+		},
+		
+		Delete: function (el) {
+			var id = $(el).attr("userid");
+			console.log(id);
 			App.loadAjax();
 
 			$.ajax({
@@ -42,6 +63,7 @@ var Users = {
 											id: id
 										},
 										success: function (result) {
+											Users.Refresh(el);
 											App.loadAjax('unmask');
 									   		$('#delete-user').remove();
 										}

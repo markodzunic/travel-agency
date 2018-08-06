@@ -48,16 +48,24 @@ public class UsersController {
 	
 	@GetMapping("users/delete")
 	public String deleteDialog(HttpServletRequest request, Model model) {
-		User user = userService.readById(2);
+		User user = userService.readById(Integer.valueOf(request.getParameter("id")));
 		model.addAttribute("user", user);	
 		
 		return "users/user-dialog";
 	}
 	
+	@RequestMapping("users/refresh")
+	public String refresh(HttpServletRequest request, Model model) {
+		List <User> user = userService.findAll();
+		model.addAttribute("users", user);	
+		
+		return "users/users-table";
+	}
+	
 	@PostMapping(path="users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public String delete(HttpServletRequest request, Model model) {
-		User user = userService.readById(2);
+		User user = userService.readById(Integer.valueOf(request.getParameter("id")));
 		String jsonInString = "";
 		
 		try {
@@ -65,7 +73,9 @@ public class UsersController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		//userService.delete(user);
+		
+		userService.delete(user);
+		
 		return jsonInString;
 	}
 }
