@@ -40,8 +40,8 @@ public class Order implements Serializable {
 	@Id
 	private int id;
 
-	@Column(name="admin_id")
-	private int adminId;
+//	@Column(name="admin_id")
+//	private int adminId;
 
 	@Column(name="current_payment")
 	private double currentPayment;
@@ -63,6 +63,10 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="users_id")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="admin_id")
+	private User admin;
 
 	public Order() {
 	}
@@ -75,13 +79,13 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-	public int getAdminId() {
-		return this.adminId;
-	}
-
-	public void setAdminId(int adminId) {
-		this.adminId = adminId;
-	}
+//	public int getAdminId() {
+//		return this.adminId;
+//	}
+//
+//	public void setAdminId(int adminId) {
+//		this.adminId = adminId;
+//	}
 
 	public double getCurrentPayment() {
 		return this.currentPayment;
@@ -145,4 +149,12 @@ public class Order implements Serializable {
 		this.user = user;
 	}
 
+	public User getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(User admin) {
+		this.admin = admin;
+	}
+	
 }

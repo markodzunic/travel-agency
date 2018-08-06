@@ -32,9 +32,20 @@ var Users = {
 								text: 'Delete',
 								class: 'btn btn-danger',
 								click: function() {
-									// making call dialog init
-									$(this).dialog( "close" );
-							   		$('#delete-user').remove();
+									App.loadAjax();
+									
+									$.ajax({
+										url: '/users/delete',
+										type: 'post',
+										async: true,
+										data: {
+											id: id
+										},
+										success: function (result) {
+											App.loadAjax('unmask');
+									   		$('#delete-user').remove();
+										}
+									});
 								}
 							},
 							No: {
