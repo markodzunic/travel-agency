@@ -23,18 +23,33 @@ var Users = {
 					$('body').append(result);
 					$('#delete-user').dialog({
 						dialogClass: 'dialog-position',
-						width: 1000,
+						width: 350,
+						show: 'blind',
+						hide: 'fold',
 						modal: true,
 						buttons: {
 							Yes: {
-								text: 'Yes',
-								class: 'btn btn-custom assign-btn pull-right',
+								text: 'Delete',
+								class: 'btn btn-danger',
 								click: function() {
 									// making call dialog init
 									$(this).dialog( "close" );
 							   		$('#delete-user').remove();
 								}
 							},
+							No: {
+								text: 'Cancel',
+								class: 'btn btn-default',
+								click: function() {
+									// making call dialog init
+									$(this).dialog( "close" );
+							   		$('#delete-user').remove();
+								}
+							}
+						},
+						create: function() {
+							var buttons = $('.ui-dialog-buttonset').children('button');
+		                    buttons.removeClass("ui-button ui-widget ui-state-default ui-state-active ui-state-focus ui-corner-all");
 						},
 						open: function() {
 						},
