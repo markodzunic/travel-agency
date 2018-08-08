@@ -7,28 +7,28 @@
   <body class="nav-md">
         <!-- page content -->
         <div layout:fragment="content" class="right_col" role="main">
-        	<div class="col-md-12 col-sm-12 col-xs-12">
+        	<div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2 th:text="Users"><small th:text="${'all users'}"></small></h2>
+                    <h2 th:text="Countries"><small th:text="${'all countries'}"></small></h2>
                     
                     <div class="clearfix"></div>
                   </div>
                   <div>
-                    <a class="btn btn-primary" th:href="@{'/users/create'}">Create User</a>
+                    <a class="btn btn-primary" th:href="@{'/destinations/create'}">Create Country</a>
                   </div>
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30" th:text="${'List of all users in database available for Admin role'}"></p>
-					<div id="users-table"><div th:replace="users/users-table"></div></div>
+                    <p class="text-muted font-13 m-b-30" th:text="${'List of all countries in database available for Admin role'}"></p>
+					<div id="countries-table"><div th:replace="destinations/countries-table"></div></div>
                   </div>
                 </div>
               </div>
         </div>
         <div layout:fragment="scripts">
-        	<script th:src="@{~/js/users.js}"></script>
+        	<script th:src="@{~/js/countries.js}"></script>
         	<script type="text/javascript">
         		document.addEventListener('DOMContentLoaded', function(){
-					Users.init();
+					Countries.init();
         		});
         	</script>
         </div>

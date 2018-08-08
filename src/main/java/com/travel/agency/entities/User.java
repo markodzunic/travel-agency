@@ -12,35 +12,18 @@ import com.travel.agency.annotation.UniqueUser;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @NamedNativeQueries({
-    @NamedNativeQuery(
-            name    =   "getAllUser",
-            query   =   "SELECT * " +
-                        "FROM users",
-                        resultClass=User.class
-    ),
-    @NamedNativeQuery(
-            name	=   "getAllByIdUser",
-            query   =   "SELECT * " +
-                        "FROM users " +
-                        "WHERE id = :id",
-                        resultClass=User.class
-    ),
-    @NamedNativeQuery(
-    		name	=	"getAllByFieldUser",
-    		query	=	"SELECT * "+
-    					"FROM users "+
-    					"WHERE :nameColumn = :value",
-    					resultClass=User.class
-	)
-})
+		@NamedNativeQuery(name = "getAllUser", query = "SELECT * " + "FROM users", resultClass = User.class),
+		@NamedNativeQuery(name = "getAllByIdUser", query = "SELECT * " + "FROM users "
+				+ "WHERE id = :id", resultClass = User.class),
+		@NamedNativeQuery(name = "getAllByFieldUser", query = "SELECT * " + "FROM users "
+				+ "WHERE :nameColumn = :value", resultClass = User.class) })
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
@@ -50,7 +33,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private byte active;
+	private int active;
 
 	private String adress;
 
@@ -61,51 +44,51 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 
-	@Email(message="wrong email")
-	@NotNull(message="email can not be empty")
+	@Email(message = "wrong email")
+	@NotNull(message = "email can not be empty")
 	@UniqueUser
 	private String email;
 
 	private String gender;
 
-	@Column(name="last_name")
-	@NotNull(message="Last name can not be empty")
-	@Size(min=3,max=30)
+	@Column(name = "last_name")
+	@NotNull(message = "Last name can not be empty")
+	@Size(min = 3, max = 30)
 	private String lastName;
 
-	@Column(name="middle_name")
+	@Column(name = "middle_name")
 	private String middleName;
 
-	@NotNull(message="Name can not be empty")
-	@Size(min=2,max=30)
+	@NotNull(message = "Name can not be empty")
+	@Size(min = 2, max = 30)
 	private String name;
 
 	private String passport;
 
-	@NotNull(message="Password can not be empty")
-	@Size(min=6,max=255)
+	@NotNull(message = "Password can not be empty")
+	@Size(min = 6, max = 255)
 	private String password;
 
 	private String phone;
 
 	private String state;
 
-	@NotNull(message="Username can not be empty")
-	@Size(min=3,max=50)
-    @UniqueUser(message="username already exists")
+	@NotNull(message = "Username can not be empty")
+	@Size(min = 3, max = 50)
+	@UniqueUser(message = "username already exists")
 	private String username;
 
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+	// bi-directional many-to-one association to Order
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private List<Order> orders;
 
-	//bi-directional many-to-one association to Role
+	// bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name="roles_id")
+	@JoinColumn(name = "roles_id")
 	private Role role;
 
-	//bi-directional many-to-one association to Wishlist
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Wishlist
+	@OneToMany(mappedBy = "user")
 	private List<Wishlist> wishlists;
 
 	public User() {
@@ -119,11 +102,13 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public byte getActive() {
-		return this.active;
+		
+
+	public int getActive() {
+		return active;
 	}
 
-	public void setActive(byte active) {
+	public void setActive(int active) {
 		this.active = active;
 	}
 
