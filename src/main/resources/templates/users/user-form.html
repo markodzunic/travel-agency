@@ -31,7 +31,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form   th:action="@{${path}}" th:object="${user}" id="user" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                    <form   th:action="@{'~/'+${path}}" th:object="${user}" id="user" method="post" data-parsley-validate class="form-horizontal form-label-left">
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstname">First Name <span class="required">*</span>
@@ -115,6 +115,17 @@
                           
                           
                            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback"></div>
+                          
+                        </div>
+                      </div>
+                      
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Password <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="password" class="form-control" value="passwordonetwo" th:name="password" placeholder="password" th:field="*{password}" th:errorclass="is-invalid">
+                          
+                          
+                           <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div>
                           
                         </div>
                       </div>

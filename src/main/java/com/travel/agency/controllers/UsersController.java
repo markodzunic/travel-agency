@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,6 +88,25 @@ public class UsersController {
 		model.addAttribute("path", "users/update/"+id);
 		return "users/user-form";
 
+	}
+	
+	
+	
+	@PostMapping("users/update/{id}")
+	public String update(@ModelAttribute User u, BindingResult bd, @PathVariable("id") int id, Model model) {
+									
+		if (bd.hasFieldErrors()) {
+			model.addAttribute("path", "users/update/"+id);
+            return "users/user-form";
+        }
+		
+		List<Role> roles = roleService.findAll();
+		
+		model.addAttribute("roles", roles);
+		userService.update(u);
+		model.addAttribute("user", u);
+		
+		return "redirect:/users/"+id;
 	}
 	
 	
