@@ -15,18 +15,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.travel.agency.entities.Role;
 import com.travel.agency.entities.User;
+import com.travel.agency.services.RoleService;
 import com.travel.agency.services.UserService;
-import com.travel.agency.utils.BikeUtils;
 
 @Controller
 public class UsersController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	RoleService roleService;
 	
 	@Autowired
 	ObjectMapper mapper;
@@ -69,7 +71,27 @@ public class UsersController {
 	@ResponseBody
 	public User delete(HttpServletRequest request, Model model) {
 		User user = userService.readById(Integer.valueOf(request.getParameter("id")));
+		userService.delete(user);
 
         return user;
 	}
+	
+	
+	@GetMapping(path="users/update/{id}")
+	public String userForm(@PathVariable("id") int id, Model model) {
+		List<Role> r = roleService.findAll();
+		User u = userService.readById(Integer.valueOf(id));
+		model.addAttribute("user", u);
+		model.addAttribute("roles", r);
+		model.addAttribute("path", "users/update/"+id);
+		return "users/user-form";
+
+	}
+	
+	
+	
+	
+	
+	
+	
 }
