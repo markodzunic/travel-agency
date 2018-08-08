@@ -59,6 +59,7 @@ var Users = {
 										url: '/users/delete',
 										type: 'post',
 										async: true,
+										dataType: 'json',
 										data: {
 											id: id
 										},
