@@ -2,6 +2,10 @@ package com.travel.agency.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +42,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private byte active;
@@ -51,26 +56,36 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 
+	@Email(message="wrong email")
+	@NotNull(message="email can not be empty")
 	private String email;
 
 	private String gender;
 
 	@Column(name="last_name")
+	@NotNull(message="Last name can not be empty")
+	@Size(min=3,max=30)
 	private String lastName;
 
 	@Column(name="middle_name")
 	private String middleName;
 
+	@NotNull(message="Name can not be empty")
+	@Size(min=2,max=30)
 	private String name;
 
 	private String passport;
 
+	@NotNull(message="Password can not be empty")
+	@Size(min=6,max=255)
 	private String password;
 
 	private String phone;
 
 	private String state;
 
+	@NotNull(message="Username can not be empty")
+	@Size(min=3,max=50)
 	private String username;
 
 	//bi-directional many-to-one association to Order
