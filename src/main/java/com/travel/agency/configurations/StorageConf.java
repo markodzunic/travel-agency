@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties("storage")
 @PropertySource(value= {"classpath:application.properties"})
-public class StorageConfiguration {
+public class StorageConf {
 
     /**
      * Folder location for storing files
