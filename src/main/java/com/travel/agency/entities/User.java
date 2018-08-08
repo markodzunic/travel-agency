@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.travel.agency.annotation.UniqueUser;
 
 import java.util.Date;
 import java.util.List;
@@ -62,6 +63,7 @@ public class User implements Serializable {
 
 	@Email(message="wrong email")
 	@NotNull(message="email can not be empty")
+	@UniqueUser
 	private String email;
 
 	private String gender;
@@ -90,6 +92,7 @@ public class User implements Serializable {
 
 	@NotNull(message="Username can not be empty")
 	@Size(min=3,max=50)
+    @UniqueUser(message="username already exists")
 	private String username;
 
 	//bi-directional many-to-one association to Order

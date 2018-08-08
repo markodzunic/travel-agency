@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layouts/base-template}">
+  
+  <body class="nav-md">
+        <!-- page content -->
+        <div layout:fragment="content" class="right_col" role="main">    
+    
+    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>User Form <small>different form elements</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form   th:action="@{${path}}" th:object="${user}" id="user" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstname">First Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="firstname" required="required" class="form-control col-md-7 col-xs-12"   placeholder="Name" th:name="name" th:field="*{name}" th:errorclass="is-invalid">
+                        
+							    	<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
+                        </div>
+                      </div>
+                      
+                       <div class="form-group">
+                        <label for="middleName" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="middleName" class="form-control col-md-7 col-xs-12" th:name="middleName" placeholder="Middle Name" th:field="*{middleName}" th:errorclass="is-invalid">
+                          
+                          <div th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}" class="invalid-feedback"></div>
+                          
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">Last Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="lastName" th:name="lastName" required="required" class="form-control col-md-7 col-xs-12" placeholder="Last Name" th:field="*{lastName}" th:errorclass="is-invalid">
+                          
+                          
+                          <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback"></div>
+                          
+                        </div>
+                      </div>
+                      
+                                           
+                                            
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" th:name="gender" value="male" th:field="*{gender}"> &nbsp; Male &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" th:name="gender" value="female" th:field="*{gender}"> Female
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                         <div class="form-group">
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
+                        <div class="control-group">
+                            <div class="controls">
+                              <div class="col-md-6 col-sm-6 col-xs-12 xdisplay_inputx form-group has-feedback">
+                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Date of Birth" aria-describedby="inputSuccess2Status2" >
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      
+                  
+                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="email" required="required" class="form-control col-md-7 col-xs-12" th:name="email" placeholder="email" th:field="*{email}"  th:errorclass="is-invalid">
+                          
+                          <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
+                          
+                        </div>
+                      </div>
+                      
+                      
+                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Username <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="username" required="required" class="form-control col-md-7 col-xs-12" th:name="username" placeholder="username" th:field="*{username}" th:errorclass="is-invalid">
+                          
+                          
+                           <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback"></div>
+                          
+                        </div>
+                      </div>
+                      
+                      
+                          <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone number </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control"  placeholder="phone" th:name="phone" th:field="*{phone}" th:errorclass="is-invalid" id="phone">
+                          
+                          <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="invalid-feedback"></div>
+                        </div>
+                      </div>
+                   
+                      
+                      
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Address </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control"  placeholder="address" th:name="adress" th:field="*{adress}" th:errorclass="is-invalid" id="adress">
+                          <div th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}" class="invalid-feedback"></div>
+                        </div>
+                      </div>
+                      
+                      
+                         <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control"  placeholder="state" th:name="state" th:field="*{state}" th:errorclass="is-invalid" id="state">
+                          <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="invalid-feedback"></div>
+                        </div>
+                      </div>
+                      
+                      
+                         <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control"  placeholder="city" th:name="city" th:field="*{city}" th:errorclass="is-invalid" id="city">
+                           <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="invalid-feedback"></div>
+                          
+                        </div>
+                      </div>
+                      
+                      
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Passport </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control"  placeholder="passport" th:name="passport" th:field="*{passport}" th:errorclass="is-invalid" id="passport">
+                          
+                           <div th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}" class="invalid-feedback"></div>
+                        </div>
+                      </div>
+                      
+                            <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" th:name="role" th:field="*{role}" id="role" th:errorclass="is-invalid">
+                           <option th:each="role: ${roles}" th:text="${role.getName()}" th:value="${role.getId()}"></option>
+                           
+                           
+                           <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="invalid-feedback"></div>
+                           
+                                                    
+                          </select>
+                        </div>
+                      </div>
+                      
+                   
+                      
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                           <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </body>
+              </html>
