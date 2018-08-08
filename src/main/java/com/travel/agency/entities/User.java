@@ -2,6 +2,9 @@ package com.travel.agency.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +37,8 @@ import java.util.List;
     					resultClass=User.class
 	)
 })
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -74,7 +79,7 @@ public class User implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch = FetchType.EAGER)
 	private List<Order> orders;
 
 	//bi-directional many-to-one association to Role

@@ -3,7 +3,9 @@ package com.travel.agency.controllers;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.core.Response;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -16,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
 import com.travel.agency.entities.User;
 import com.travel.agency.services.UserService;
+import com.travel.agency.utils.BikeUtils;
 
 @Controller
 public class UsersController {
@@ -64,18 +69,9 @@ public class UsersController {
 	
 	@PostMapping(path="users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String delete(HttpServletRequest request, Model model) {
+	public User delete(HttpServletRequest request, Model model) {
 		User user = userService.readById(Integer.valueOf(request.getParameter("id")));
-		String jsonInString = "";
-		
-		try {
-			jsonInString = mapper.writeValueAsString(user.getEmail());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		
-		userService.delete(user);
-		
-		return jsonInString;
+
+        return user;
 	}
 }
