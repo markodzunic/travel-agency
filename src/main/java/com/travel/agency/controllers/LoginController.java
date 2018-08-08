@@ -69,7 +69,7 @@ public class LoginController {
 		ModelAndView model = new ModelAndView();
 		User user = new User();
 		
-		Role roles = roleService.readById(1);
+		List<Role> roles = roleService.findAll();
 
 		model.addObject("roles", roles);
 		
@@ -80,19 +80,19 @@ public class LoginController {
 	
 	
 	
-	@PostMapping("login/register")
+	@PostMapping("/register")
 	public String create(@Valid @ModelAttribute User u, BindingResult bd, Model model) {
 		
 		
 		List<Role> roles = roleService.findAll();
 
 		model.addAttribute("roles", roles);
-		
-		
+	
+			
 		if (bd.hasErrors()) {
 			model.addAttribute("user", u);
 			model.addAttribute("path", "/register");
-            return "register";
+            return "login/register";
         }
 		
 		userService.save(u);
