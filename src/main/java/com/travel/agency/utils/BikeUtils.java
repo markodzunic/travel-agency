@@ -1,7 +1,10 @@
 package com.travel.agency.utils;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -10,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+
+import com.travel.agency.entities.User;
 
 @Service
 public class BikeUtils {
@@ -115,5 +120,25 @@ public class BikeUtils {
 		}
 		
 		return false;
+	}
+	
+	public static Map<String, Object> convertToHashMap(User user, String [] rel) throws IllegalArgumentException, IllegalAccessException {
+
+		Map<String, Object> map = new HashMap<>();
+		
+		// Use MyObject.class.getFields() instead of getDeclaredFields()
+		// If you are interested in public fields only
+		for (Field field : user.getClass().getDeclaredFields()) {
+			
+		    // Skip this if you intend to access to public fields only
+		    if (!field.isAccessible()) {
+		        field.setAccessible(true);
+		    }
+		    if (!Arrays.asList(rel).contains(field.getName())) {
+		    	map.put(field.getName(), field.get(user));
+		    }
+		}
+		
+		return map;
 	}
 }

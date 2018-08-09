@@ -1,6 +1,7 @@
 package com.travel.agency.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ import com.travel.agency.entities.Role;
 import com.travel.agency.entities.User;
 import com.travel.agency.services.RoleService;
 import com.travel.agency.services.UserService;
+import com.travel.agency.utils.BikeUtils;
 
 @Controller
 public class UsersController {
@@ -77,11 +79,13 @@ public class UsersController {
 
 	@PostMapping(path = "users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public User delete(HttpServletRequest request, Model model) {
+	public Map<String, Object> delete(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException  {
 		User user = userService.readById(Integer.valueOf(request.getParameter("id")));
+		String [] rel = {"orders", "role", "wishlists"};
+		
 		userService.delete(user);
-
-		return user;
+		
+		return BikeUtils.convertToHashMap(user, rel);
 	}
 
 	@GetMapping(path = "users/update/{id}")
