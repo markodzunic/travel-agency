@@ -6,7 +6,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("storage")
 @PropertySource(value= {"classpath:application.properties"})
 public class StorageConf {
 
