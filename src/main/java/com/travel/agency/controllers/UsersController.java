@@ -5,12 +5,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.agency.entities.Role;
 import com.travel.agency.entities.User;
 import com.travel.agency.services.RoleService;
@@ -39,9 +36,6 @@ public class UsersController {
 
 	@Autowired
 	RoleService roleService;
-
-	@Autowired
-	ObjectMapper mapper;
 
 	@RequestMapping("users")
 	public String users(Model model) {
@@ -91,26 +85,32 @@ public class UsersController {
 	@GetMapping(path = "users/update/{id}")
 	public String userForm(@PathVariable("id") int id, Model model) {
 		List<Role> r = roleService.findAll();
+		
 		User u = userService.readById(Integer.valueOf(id));
+		
 		model.addAttribute("user", u);
 		model.addAttribute("roles", r);
 		model.addAttribute("path", "users/update/" + id);
+		
 		return "users/user-form";
-
 	}
 
 	@PostMapping("users/update/{id}")
-	public String update(@ModelAttribute User u, BindingResult bd, @PathVariable("id") int id, Model model) {
-
-		if (bd.hasFieldErrors()) {
+	public String update(@Valid @ModelAttribute User u, BindingResult bd, @PathVariable("id") int id, Model model) {
+		
+		List<Role> roles = roleService.findAll();
+		
+		if (bd.hasErrors()) {
+			System.out.println("errors");
+			model.addAttribute("roles", roles);
+			model.addAttribute("user", u);
 			model.addAttribute("path", "users/update/" + id);
 			return "users/user-form";
 		}
-
-		List<Role> roles = roleService.findAll();
-
-		model.addAttribute("roles", roles);
+		System.out.println("no-errors");
 		userService.update(u);
+		
+		model.addAttribute("roles", roles);
 		model.addAttribute("user", u);
 
 		return "redirect:/users/" + id;
@@ -126,7 +126,6 @@ public class UsersController {
 		model.addAttribute("path", "/users/create");
 
 		return "users/user-form";
-
 	}
 	
 	@PostMapping("users/create")
@@ -135,19 +134,21 @@ public class UsersController {
 		List<Role> roles = roleService.findAll();
 		
 		if (bd.hasErrors()) {
+			System.out.println("errors");
 			model.addAttribute("user", u);
+			model.addAttribute("roles", roles);
 			model.addAttribute("path", "users/create");
             return "users/user-form";
         }
-		
+		System.out.println("no-errors");
 		u.setPassword(bcEncoder.encode(u.getPassword()));
 		u.setActive(1);
+		
 		userService.save(u);
+		
 		model.addAttribute("user",u);
 		
-		return "redirect:/users";
-					
-				
+		return "redirect:/users";		
 	}
 
 }
