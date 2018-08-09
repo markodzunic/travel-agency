@@ -39,8 +39,8 @@
 	       <td th:text="${user.phone}"></td>
 	       <td th:text="${user.role.name}"></td>
 	       <td>
-	       		<a><i class="glyphicon glyphicon-play"></i></a>
-	       		<a><i class="glyphicon glyphicon-pencil"></i></a>
+	       		<a  th:href="@{'/users/' + ${user.id}}"><i class="glyphicon glyphicon-play"></i></a>
+	       		<a th:href="@{'/users/update/' + ${user.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
 	       		<a th:userid="${user.id}" onclick="Users.Delete(this);return false;"><i  class="glyphicon glyphicon-remove"></i></a>
 	       </td>
 	     </tr>
