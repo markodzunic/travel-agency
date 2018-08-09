@@ -69,26 +69,25 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div id="gender" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" th:name="gender" value="male" th:field="*{gender}"> &nbsp; Male &nbsp;
+                              <input type="radio" th:name="gender" value="M" th:field="*{gender}"> &nbsp; Male &nbsp;
                             </label>
                             <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" th:name="gender" value="female" th:field="*{gender}"> Female
+                              <input type="radio" th:name="gender" value="D" th:field="*{gender}"> Female
                             </label>
                           </div>
                         </div>
                       </div>
-                      
+                    
                      <div class="form-group">
                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
-                        <div class="control-group">
-                            <div class="controls">
-                              <div class="col-md-6 col-sm-6 col-xs-12 xdisplay_inputx form-group has-feedback">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Date of Birth" aria-describedby="inputSuccess2Status2" >
-                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                              </div>
-                            </div>
-                          </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+	                        <div class="input-group date" id="dob">
+	                            <input th:name="dob" th:id="date" th:field="*{dob}" type="text" class="form-control">
+	                            <span class="input-group-addon">
+	                               <span class="glyphicon glyphicon-calendar"></span>
+	                            </span>
+	                        </div>
+                    	</div>
                       </div>
                       
                   
@@ -186,6 +185,13 @@
                   </div>
                 </div>
             </div>
+	       	<script type="text/javascript">
+		       	document.addEventListener('DOMContentLoaded', function(){
+			       	$('#dob').datetimepicker({
+				        format: 'YYYY-MM-DD'
+				    }); 
+		       	});
+	       	</script>
         </div>
     </body>
 </html>

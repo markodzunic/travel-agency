@@ -843,13 +843,7 @@ function init_daterangepicker_single_call() {
         console.log(a.toISOString(), b.toISOString(), c)
     }
     ),
-    $("#single_cal2").daterangepicker( {
-        singleDatePicker: !0, singleClasses: "picker_2"
-    }
-    , function(a, b, c) {
-        console.log(a.toISOString(), b.toISOString(), c)
-    }
-    ),
+    
     $("#single_cal3").daterangepicker( {
         singleDatePicker: !0, singleClasses: "picker_3"
     }
