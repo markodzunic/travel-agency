@@ -87,7 +87,7 @@ public class UsersController {
 		List<Role> r = roleService.findAll();
 		
 		User u = userService.readById(Integer.valueOf(id));
-		
+
 		model.addAttribute("user", u);
 		model.addAttribute("roles", r);
 		model.addAttribute("path", "users/update/" + id);
@@ -101,13 +101,17 @@ public class UsersController {
 		List<Role> roles = roleService.findAll();
 		
 		if (bd.hasErrors()) {
-			System.out.println("errors");
+			User usr = userService.readById(u.getId());
+			u.setDob(usr.getDob());
 			model.addAttribute("roles", roles);
 			model.addAttribute("user", u);
 			model.addAttribute("path", "users/update/" + id);
 			return "users/user-form";
 		}
-		System.out.println("no-errors");
+		
+		u.setPassword(bcEncoder.encode(u.getPassword()));
+		u.setActive(1);
+
 		userService.update(u);
 		
 		model.addAttribute("roles", roles);
@@ -134,13 +138,14 @@ public class UsersController {
 		List<Role> roles = roleService.findAll();
 		
 		if (bd.hasErrors()) {
-			System.out.println("errors");
+			User usr = userService.readById(u.getId());
+			u.setDob(usr.getDob());
 			model.addAttribute("user", u);
 			model.addAttribute("roles", roles);
 			model.addAttribute("path", "users/create");
             return "users/user-form";
         }
-		System.out.println("no-errors");
+
 		u.setPassword(bcEncoder.encode(u.getPassword()));
 		u.setActive(1);
 		
