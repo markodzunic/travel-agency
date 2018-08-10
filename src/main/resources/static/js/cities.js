@@ -1,4 +1,4 @@
-var Countries = {
+var Cities = {
 		init: function () {
 			$("#datatable-responsive").DataTable({
 	        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [1]}]
@@ -11,11 +11,11 @@ var Countries = {
 			$.ajax({
 				type: "POST",
 				async: true,
-				url: '/countries/refresh',
+				url: '/cities/refresh',
 				dataType: 'html',
 				success:function(result){
 					//$('#datatable-responsive_wrapper').remove();
-					$('#countries-table').html(result);
+					$('#cities-table').html(result);
 					
 					$("#datatable-responsive").DataTable({
 			        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [1]}]
@@ -27,12 +27,12 @@ var Countries = {
 		},
 		
 		Delete: function (el) {
-			var id = $(el).attr("countryid");
+			var id = $(el).attr("cityid");
 			console.log(id);
 			App.loadAjax();
 
 			$.ajax({
-				url: '/countries/delete',
+				url: '/cities/delete',
 				type: 'get',
 				data: {
 					id: id
@@ -42,7 +42,7 @@ var Countries = {
 
 					// calling dialog for calls
 					$('body').append(result);
-					$('#delete-country').dialog({
+					$('#delete-city').dialog({
 						dialogClass: 'dialog-position',
 						width: 350,
 						show: 'blind',
@@ -56,7 +56,7 @@ var Countries = {
 									App.loadAjax();
 									
 									$.ajax({
-										url: '/countries/delete',
+										url: '/cities/delete',
 										type: 'post',
 										async: true,
 										
@@ -66,7 +66,7 @@ var Countries = {
 										success: function (result) {
 											Countries.Refresh(el);
 											App.loadAjax('unmask');
-									   		$('#delete-country').remove();
+									   		$('#delete-city').remove();
 										}
 									});
 								}
@@ -77,7 +77,7 @@ var Countries = {
 								click: function() {
 									// making call dialog init
 									$(this).dialog( "close" );
-							   		$('#delete-country').remove();
+							   		$('#delete-city').remove();
 								}
 							}
 						},
@@ -89,7 +89,7 @@ var Countries = {
 						},
 						close: function() {
 						   	$(this).dialog( "close" );
-						   	$('#delete-country').remove();
+						   	$('#delete-city').remove();
 						}
 					});
 				}

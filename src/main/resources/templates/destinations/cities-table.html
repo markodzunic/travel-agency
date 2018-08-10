@@ -12,12 +12,12 @@
 	     </tr>
 	   </thead>
 	   <tbody>
-	     <tr th:each="country : ${countries}">
-	       <td th:text="${country.name}"></td>
+	     <tr th:each="city : ${cities}">
+	       <td th:text="${city.name}"></td>
 	
 	       <td>
-	       		<a  th:href="@{'/destinations/' + ${country.id}}"><i class="glyphicon glyphicon-play"></i></a>
-	       	    <a th:countryid="${country.id}" onclick="Countries.Delete(this);return false;"><i  class="glyphicon glyphicon-remove"></i></a>
+	       		<a  th:href="@{'/cities/' + ${city.id}}"><i class="glyphicon glyphicon-play"></i></a>
+	       	    <a th:cityid="${city.id}" onclick="City.Delete(this);return false;"><i  class="glyphicon glyphicon-remove"></i></a>
 	       </td>
 	     </tr>
 	   </tbody>
