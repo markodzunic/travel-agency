@@ -1,6 +1,7 @@
 package com.travel.agency.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import com.travel.agency.entities.Role;
 import com.travel.agency.entities.User;
 import com.travel.agency.services.CityService;
 import com.travel.agency.services.CountryService;
+import com.travel.agency.utils.BikeUtils;
 
 @Controller
 public class CountriesController { 
@@ -87,11 +89,12 @@ public class CountriesController {
 
 	@PostMapping(path = "countries/delete", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String delete(HttpServletRequest request, Model model) {
+	public Map<String, Object> delete(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException {
 		Country country = countryService.readById(Integer.valueOf(request.getParameter("id")));
 		countryService.delete(country);
 
-		return country.getName();
+		return BikeUtils.convertToHashMap(country,null);
+	
 	}
 	
 	
