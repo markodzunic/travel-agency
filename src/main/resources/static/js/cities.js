@@ -64,7 +64,7 @@ var Cities = {
 											id: id
 										},
 										success: function (result) {
-											Countries.Refresh(el);
+											Cities.Refresh(el);
 											App.loadAjax('unmask');
 									   		$('#delete-city').remove();
 										}
