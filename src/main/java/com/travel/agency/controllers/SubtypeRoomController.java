@@ -13,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.travel.agency.entities.City;
+import com.travel.agency.entities.Country;
 import com.travel.agency.entities.SubtypeRoom;
 import com.travel.agency.entities.Type;
 import com.travel.agency.services.SubtypeRoomService;
@@ -33,7 +35,7 @@ public class SubtypeRoomController {
 	@Autowired
 	SubtypeRoomService subtypeRoomService;
 	
-	//list of accomodations
+	//list of accomomdations
 	@GetMapping("/types/subtyperooms")
 	public String subtypes(Model model) {
 		List<SubtypeRoom> room= subtypeRoomService.findAll();
@@ -42,7 +44,7 @@ public class SubtypeRoomController {
 				
 	}
 	
-	//delete dialog for accomodation
+	//delete dialog for accommodation
 
 	@GetMapping("subtyperooms/delete")
 	public String deleteSubtype(HttpServletRequest request, Model model) {
@@ -75,7 +77,7 @@ public class SubtypeRoomController {
 	
 	
 	
-	//create accomodation get mapping
+	//create accommodation get mapping
 	
 	@GetMapping("subtyperooms/create")
 	public String subtyperoomCreate(Model model) {
@@ -112,6 +114,50 @@ public class SubtypeRoomController {
 		
 	
 	}
+	
+	
+	//update accommodation get method
+	
+	@GetMapping("subtyperooms/update/{id}")
+	public String subtyperoomUpdate(@PathVariable("id") int id,Model model) {
+		
+	List<Type> type = typeService.findAll();
+	SubtypeRoom c = subtypeRoomService.readById(Integer.valueOf(id));
+		
+	model.addAttribute("subtyperoom", c);
+	model.addAttribute("path","/subtyperooms/update/" + id);
+	model.addAttribute("types", type);
+	
+		return "subtyperooms/subtyperoom-form";
+				
+	}
+	
+	
+	//update subtyperoom post method 
+	
+	@PostMapping("subtyperooms/update/{id}")
+	public String updateSubtype(@Valid @ModelAttribute SubtypeRoom c, BindingResult bd, Model model) {
+		List<Type> type = typeService.findAll();
+		
+		if (bd.hasErrors()) {
+			model.addAttribute("subtyperoom", c);
+			model.addAttribute("types",type);
+			model.addAttribute("path", "/subtyperooms/update/"+c.getId());
+            return "subtyperooms/subtyperoom-form";
+        }
+		
+		model.addAttribute("subtyperoom", c);
+		
+		
+		
+		subtypeRoomService.update(c);
+		
+		return "redirect:/types/"+c.getType().getId();
+		
+		
+	}
+	
+	
 	
 	
 
