@@ -172,27 +172,13 @@ public class CountriesController {
 		
 	}
 	
+	@GetMapping("countries/showCities")
+	public String showCities(HttpServletRequest request, Model model) {
+		
+		List<City> cities = cityService.findAllByCountry(request.getParameter("id"));
+		
+		model.addAttribute("cities", cities);
 
-		
-		
-		
-
-		
-		
-		
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+		return "countries/cities-dialog";	
+	}
 }

@@ -16,9 +16,10 @@
 	       <td th:text="${country.name}"></td>
 	
 	       <td>
-	       		<a  th:href="@{'/destinations/' + ${country.id}}"><i class="glyphicon glyphicon-play"></i></a>
-	       		<a  th:href="@{'/destinations/update/' + ${country.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
-	       	    <a th:countryid="${country.id}" onclick="Countries.Delete(this);return false;"><i  class="glyphicon glyphicon-remove"></i></a>
+	       		<a class="btn btn-primary btn-xs" th:text="View" th:href="@{'/destinations/' + ${country.id}}"><i class="fa fa-folder"></i></a>       		
+	       		<a class="btn btn-info btn-xs" th:text="Edit" th:href="@{'/destinations/update/' + ${country.id}}"><i class="fa fa-pencil"></i></a>
+	       	    <a class="btn btn-danger btn-xs" th:text="Delete" th:countryid="${country.id}" onclick="Countries.Delete(this);return false;"><i  class="fa fa-trash-o"></i></a>
+	       		<a th:countryid="${country.id}" th:text="Cities" class="btn btn-primary btn-xs" onclick="Countries.ShowCities(this);return false;"><i  class="fa fa-home"></i></a>
 	       </td>
 	     </tr>
 	   </tbody>
