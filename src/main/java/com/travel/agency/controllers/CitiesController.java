@@ -108,7 +108,7 @@ public class CitiesController {
 	            return "cities/city-form";
 	        }
 						
-			c.setCountry(countryService.readById(6));
+			c.setCountry(countryService.readById(1));
 			model.addAttribute("city", c);
 			cityService.save(c);
 	
@@ -145,13 +145,13 @@ public class CitiesController {
 			if (bd.hasErrors()) {
 				model.addAttribute("city", c);
 				model.addAttribute("countries",country);
-				model.addAttribute("path", "cities/update/"+c.getId());
+				model.addAttribute("path", "/cities/update/"+c.getId());
 	            return "cities/city-form";
 	        }
 			
 			model.addAttribute("city", c);
 			
-			c.setCountry(countryService.readById(c.getCountry().getId()));
+			c.setCountry(countryService.readById(1));
 			
 			cityService.update(c);
 			
