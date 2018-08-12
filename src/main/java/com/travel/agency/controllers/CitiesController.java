@@ -128,7 +128,7 @@ public class CitiesController {
 		City c = cityService.readById(Integer.valueOf(id));
 			
 		model.addAttribute("city", c);
-		model.addAttribute("path","cities/update/" + id);
+		model.addAttribute("path","/cities/update/" + id);
 		model.addAttribute("countries", country);
 		
 			return "cities/city-form";
