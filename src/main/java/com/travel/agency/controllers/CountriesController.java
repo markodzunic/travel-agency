@@ -25,7 +25,7 @@ import com.travel.agency.services.CityService;
 import com.travel.agency.services.CountryService;
 
 @Controller
-public class DestinationsController { 
+public class CountriesController { 
 	
 	@Autowired
 	CountryService countryService;
@@ -42,18 +42,10 @@ public class DestinationsController {
 		List<Country> country = countryService.findAll();
 		model.addAttribute("countries", country);
 		
-		return "destinations/countries";
+		return "countries/countries";
 				
 	}
-	
-	//list of cities 
-	@GetMapping("/destinations/cities")
-	public String cities(Model model) {
-		List<City> city= cityService.findAll();
-		model.addAttribute("cities",city);
-		return "destinations/city-table";
-				
-	}
+
 	
 	
     //play button 
@@ -67,7 +59,7 @@ public class DestinationsController {
 		model.addAttribute("countries", country);
 		model.addAttribute("cities",city);
 
-		return "destinations/cities";
+		return "cities/cities";
 	}
 	
 	
@@ -81,7 +73,7 @@ public class DestinationsController {
 		Country country = countryService.readById(Integer.valueOf(request.getParameter("id")));
 		model.addAttribute("countries", country);
 
-		return "destinations/country-dialog";
+		return "countries/country-dialog";
 	}
 
 	@RequestMapping("countries/refresh")
@@ -90,7 +82,7 @@ public class DestinationsController {
 		
 		model.addAttribute("countries", country);
 
-		return "destinations/countries-table";
+		return "countries/countries-table";
 	}
 
 	@PostMapping(path = "countries/delete", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -113,7 +105,7 @@ public class DestinationsController {
 		model.addAttribute("country", u);
 		model.addAttribute("path", "destinations/create");
 
-		return "destinations/country-form";
+		return "countries/country-form";
 
 	}
 	
@@ -127,7 +119,7 @@ public class DestinationsController {
 		if (bd.hasErrors()) {
 			model.addAttribute("country", u);
 			model.addAttribute("path", "destinations/create");
-            return "destinations/country-form";
+            return "countries/country-form";
         }
 		
 		
@@ -140,74 +132,7 @@ public class DestinationsController {
 	}
 	
 	
-	
-	//delete dialog for cities
 
-		@GetMapping("cities/delete")
-		public String deleteCity(HttpServletRequest request, Model model) {
-			City city = cityService.readById(Integer.valueOf(request.getParameter("id")));
-			model.addAttribute("cities", city);
-
-			return "destinations/city-dialog";
-		}
-
-		@RequestMapping("cities/refresh")
-		public String refreshCity(HttpServletRequest request, Model model) {
-			List<City> city = cityService.findAll();
-			
-			model.addAttribute("cities", city);
-
-			return "destinations/cities-table";
-		}
-
-		@PostMapping(path = "cities/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-		@ResponseBody
-		public String deleteC(HttpServletRequest request, Model model) {
-			City city = cityService.readById(Integer.valueOf(request.getParameter("id")));
-			cityService.delete(city);
-
-			return city.getName();
-		}
-	
-		
-	
-		
-		//create city get mapping
-		
-		@GetMapping("cities/create")
-		public String cityCreate(Model model) {
-			City city = new City();
-			List<Country> country = countryService.findAll();
-
-			model.addAttribute("countries", country);
-			model.addAttribute("city", city);
-			model.addAttribute("path", "/cities/create");
-
-			return "destinations/city-form";
-		}
-		
-		
-		@PostMapping("cities/create")
-		public String cCreate(@Valid @ModelAttribute City c, BindingResult bd, Model model) {
-			
-			List<Country> countries = countryService.findAll();
-			
-			if (bd.hasErrors()) {
-				System.out.println("errors");
-				model.addAttribute("city", c);
-				model.addAttribute("countries", countries);
-				model.addAttribute("path", "cities/create");
-	            return "cities/city-form";
-	        }
-						
-			c.setCountry(countryService.readById(6));
-			model.addAttribute("city", c);
-			cityService.save(c);
-	
-			return "redirect:/destinations/"+c.getCountry().getId();
-			
-		
-		}
 		
 		
 		

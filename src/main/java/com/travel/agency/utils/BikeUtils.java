@@ -138,4 +138,24 @@ public class BikeUtils {
 		
 		return map;
 	}
+	
+	public static Map<String, Object> hashMapConverterCity(City c, String [] rel) throws IllegalArgumentException, IllegalAccessException {
+
+		Map<String, Object> map = new HashMap<>();
+		
+		// Use MyObject.class.getFields() instead of getDeclaredFields()
+		// If you are interested in public fields only
+		for (Field field : c.getClass().getDeclaredFields()) {
+			
+		    // Skip this if you intend to access to public fields only
+		    if (!field.isAccessible()) {
+		        field.setAccessible(true);
+		    }
+		    if (!Arrays.asList(rel).contains(field.getName())) {
+		    	map.put(field.getName(), field.get(c));
+		    }
+		}
+		
+		return map;
+	}
 }
