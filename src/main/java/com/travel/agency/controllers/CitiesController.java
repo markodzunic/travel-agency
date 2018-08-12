@@ -107,8 +107,9 @@ public class CitiesController {
 				model.addAttribute("path", "cities/create");
 	            return "cities/city-form";
 	        }
+			
 						
-			c.setCountry(countryService.readById(1));
+		
 			model.addAttribute("city", c);
 			cityService.save(c);
 	
@@ -151,7 +152,7 @@ public class CitiesController {
 			
 			model.addAttribute("city", c);
 			
-			c.setCountry(countryService.readById(1));
+			
 			
 			cityService.update(c);
 			
