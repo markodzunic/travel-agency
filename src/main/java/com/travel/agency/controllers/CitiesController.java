@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,7 +71,7 @@ public class CitiesController {
 		public Map<String, Object> deleteC(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException {
 			City city = cityService.readById(Integer.valueOf(request.getParameter("id")));
 			cityService.delete(city);
-			String [] rel = {"country"};
+			String [] rel = {"country","apartments"};
 		
 					
 			return BikeUtils.convertToHashMap(city,rel);
@@ -114,6 +115,49 @@ public class CitiesController {
 			return "redirect:/destinations/"+c.getCountry().getId();
 			
 		
+		}
+		
+		
+		
+		//update city get method
+		
+		@GetMapping("cities/update/{id}")
+		public String cityUpdate(@PathVariable("id") int id,Model model) {
+			
+		List<Country> country = countryService.findAll();
+		City c = cityService.readById(Integer.valueOf(id));
+			
+		model.addAttribute("city", c);
+		model.addAttribute("path","cities/update/" + id);
+		model.addAttribute("countries", country);
+		
+			return "cities/city-form";
+					
+		}
+		
+		
+		//pdate city post method
+		
+		@PostMapping("cities/update/{id}")
+		public String updateCity(@Valid @ModelAttribute City c, BindingResult bd, Model model) {
+			List<Country> country = countryService.findAll();
+			
+			if (bd.hasErrors()) {
+				model.addAttribute("city", c);
+				model.addAttribute("countries",country);
+				model.addAttribute("path", "cities/update/"+c.getId());
+	            return "cities/city-form";
+	        }
+			
+			model.addAttribute("city", c);
+			
+			c.setCountry(countryService.readById(c.getCountry().getId()));
+			
+			cityService.update(c);
+			
+			return "redirect:/destinations/"+c.getCountry().getId();
+			
+			
 		}
 
 }

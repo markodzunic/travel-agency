@@ -92,8 +92,9 @@ public class CountriesController {
 	public Map<String, Object> delete(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException {
 		Country country = countryService.readById(Integer.valueOf(request.getParameter("id")));
 		countryService.delete(country);
+		String [] rel = {"cities"};
 
-		return BikeUtils.convertToHashMap(country,null);
+		return BikeUtils.convertToHashMap(country,rel);
 	
 	}
 	
@@ -134,6 +135,42 @@ public class CountriesController {
 				
 	}
 	
+	
+	//update country get method
+	
+	@GetMapping("destinations/update/{id}")
+	public String countryUpdate(@PathVariable("id") int id,Model model) {
+		
+	Country c = countryService.readById(Integer.valueOf(id));
+		
+	model.addAttribute("country", c);
+
+	model.addAttribute("path","destinations/update/" + id);
+	
+		return "countries/country-form";
+				
+	}
+	
+	
+	//pdate coutry post method
+	
+	@PostMapping("destinations/update/{id}")
+	public String updateCountry(@Valid @ModelAttribute Country c, BindingResult bd, Model model) {
+		
+		if (bd.hasErrors()) {
+			model.addAttribute("country", c);
+			model.addAttribute("path", "destinations/update/"+c.getId());
+            return "countries/country-form";
+        }
+		
+		model.addAttribute("country", c);
+		
+		countryService.update(c);
+		
+		return "redirect:/destinations";
+		
+		
+	}
 	
 
 		
