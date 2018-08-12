@@ -30,24 +30,24 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form th:action="@{'~/'+${path}}" th:object="${user}" id="user" method="post" data-parsley-validate class="form-horizontal form-label-left">
+                    <form th:action="@{${path}}" th:object="${user}" id="user" method="post" data-parsley-validate class="form-horizontal form-label-left">
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstname">First Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="firstname" required="required" class="form-control col-md-7 col-xs-12"   placeholder="Name" th:name="name" th:field="*{name}" th:errorclass="is-invalid">
+                          <input type="text" id="firstname" required="required" class="form-control col-md-7 col-xs-12"   placeholder="Name" th:name="name" th:field="*{name}" th:errorclass="has-error">
                         
-							    	<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="invalid-feedback"></div>
+							    	<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert alert-danger mt-5 fl-100"></div>
                         </div>
                       </div>
                       
                        <div class="form-group">
                         <label for="middleName" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="middleName" class="form-control col-md-7 col-xs-12" th:name="middleName" placeholder="Middle Name" th:field="*{middleName}" th:errorclass="is-invalid">
+                          <input type="text" id="middleName" class="form-control col-md-7 col-xs-12" th:name="middleName" placeholder="Middle Name" th:field="*{middleName}" th:errorclass="has-error">
                           
-                          <div th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}" class="invalid-feedback"></div>
+                          <div th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}" class="alert alert-danger mt-5 fl-100"></div>
                           
                         </div>
                       </div>
@@ -56,10 +56,10 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">Last Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="lastName" th:name="lastName" required="required" class="form-control col-md-7 col-xs-12" placeholder="Last Name" th:field="*{lastName}" th:errorclass="is-invalid">
+                          <input type="text" id="lastName" th:name="lastName" required="required" class="form-control col-md-7 col-xs-12" placeholder="Last Name" th:field="*{lastName}" th:errorclass="has-error">
                           
                           
-                          <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="invalid-feedback"></div>
+                          <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="alert alert-danger mt-5 fl-100"></div>
                           
                         </div>
                       </div>
@@ -95,10 +95,8 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="email" required="required" class="form-control col-md-7 col-xs-12" th:name="email" placeholder="email" th:field="*{email}"  th:errorclass="is-invalid">
-                          
-                          <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
-                          
+                          <input type="text" id="email" required="required" class="form-control col-md-7 col-xs-12" th:name="email" placeholder="email" th:field="*{email}"  th:errorclass="has-error">              
+                          <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger mt-5 fl-100"></div> 
                         </div>
                       </div>
                       
@@ -107,10 +105,10 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Username <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="username" required="required" class="form-control col-md-7 col-xs-12" th:name="username" placeholder="username" th:field="*{username}" th:errorclass="is-invalid">
+                          <input type="text" id="username" required="required" class="form-control col-md-7 col-xs-12" th:name="username" placeholder="username" th:field="*{username}" th:errorclass="has-error">
                           
                           
-                           <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback"></div>
+                           <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger mt-5 fl-100"></div>
                           
                         </div>
                       </div>
@@ -118,41 +116,41 @@
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Password <span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="password" class="form-control" value="passwordonetwo" th:name="password" placeholder="password" th:field="*{password}" th:errorclass="is-invalid">          
-                           <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div> 
+                          <input type="password" class="form-control" value="passwordonetwo" th:name="password" placeholder="password" th:field="*{password}" th:errorclass="has-error">          
+                           <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="alert alert-danger mt-5 fl-100"></div> 
                         </div>
                       </div>
                                            
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone number </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control"  placeholder="phone" th:name="phone" th:field="*{phone}" th:errorclass="is-invalid" id="phone">
+                          <input type="text" class="form-control"  placeholder="phone" th:name="phone" th:field="*{phone}" th:errorclass="has-error" id="phone">
                           
-                          <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="invalid-feedback"></div>
+                          <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger mt-5 fl-100"></div>
                         </div>
                       </div>
                    
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Address </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control"  placeholder="address" th:name="adress" th:field="*{adress}" th:errorclass="is-invalid" id="adress">
-                          <div th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}" class="invalid-feedback"></div>
+                          <input type="text" class="form-control"  placeholder="address" th:name="adress" th:field="*{adress}" th:errorclass="has-error" id="adress">
+                          <div th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}" class="alert alert-danger mt-5 fl-100"></div>
                         </div>
                       </div>
                           
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control"  placeholder="state" th:name="state" th:field="*{state}" th:errorclass="is-invalid" id="state">
-                          <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="invalid-feedback"></div>
+                          <input type="text" class="form-control"  placeholder="state" th:name="state" th:field="*{state}" th:errorclass="has-error" id="state">
+                          <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="alert alert-danger mt-5 fl-100"></div>
                         </div>
                       </div>
                       
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control"  placeholder="city" th:name="city" th:field="*{city}" th:errorclass="is-invalid" id="city">
-                           <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="invalid-feedback"></div>
+                          <input type="text" class="form-control"  placeholder="city" th:name="city" th:field="*{city}" th:errorclass="has-error" id="city">
+                           <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="alert alert-danger mt-5 fl-100"></div>
                           
                         </div>
                       </div>
@@ -160,19 +158,19 @@
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Passport </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" class="form-control"  placeholder="passport" th:name="passport" th:field="*{passport}" th:errorclass="is-invalid" id="passport">
+                          <input type="text" class="form-control"  placeholder="passport" th:name="passport" th:field="*{passport}" th:errorclass="has-error" id="passport">
                           
-                           <div th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}" class="invalid-feedback"></div>
+                           <div th:if="${#fields.hasErrors('passport')}" th:errors="*{passport}" class="alert alert-danger mt-5 fl-100"></div>
                         </div>
                       </div>
                       
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control" th:name="role" th:field="*{role}" id="role" th:errorclass="is-invalid">
+                          <select class="form-control" th:name="role" th:field="*{role}" id="role" th:errorclass="has-error">
                            	<option th:each="role: ${roles}" th:text="${role.getName()}" th:value="${role.getId()}"></option>                        
                           </select>
-                          <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="invalid-feedback"></div>
+                          <div th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="alert alert-danger mt-5 fl-100"></div>
                         </div>
                       </div>
                       <div class="ln_solid"></div>

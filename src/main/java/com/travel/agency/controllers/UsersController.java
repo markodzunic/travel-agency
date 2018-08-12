@@ -90,7 +90,7 @@ public class UsersController {
 
 		model.addAttribute("user", u);
 		model.addAttribute("roles", r);
-		model.addAttribute("path", "users/update/" + id);
+		model.addAttribute("path", "/users/update/" + id);
 		
 		return "users/user-form";
 	}
@@ -105,7 +105,7 @@ public class UsersController {
 			u.setDob(usr.getDob());
 			model.addAttribute("roles", roles);
 			model.addAttribute("user", u);
-			model.addAttribute("path", "users/update/" + id);
+			model.addAttribute("path", "/users/update/" + id);
 			return "users/user-form";
 		}
 		
@@ -142,7 +142,7 @@ public class UsersController {
 			u.setDob(usr.getDob());
 			model.addAttribute("user", u);
 			model.addAttribute("roles", roles);
-			model.addAttribute("path", "users/create");
+			model.addAttribute("path", "/users/create");
             return "users/user-form";
         }
 

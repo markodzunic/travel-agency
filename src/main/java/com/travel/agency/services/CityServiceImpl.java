@@ -52,5 +52,16 @@ public class CityServiceImpl implements CityService{
 			return null;
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<City> findAllByCountry(String countryId) {
+		try {
+			return genericDAO.getManager().createNativeQuery(
+				"SELECT * FROM cities WHERE countries_id=:field", City.class)
+				.setParameter("field", countryId).getResultList();
+		} catch (NoResultException nre){
+			return null;
+		}
+	}
 }
