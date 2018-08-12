@@ -17,5 +17,6 @@ public interface CityService {
 	public City update(City obj);
 	
 	public City findCityByField(String field);
-
+	
+	public List<City> findAllByCountry(String countryId);
 }

@@ -19,7 +19,16 @@
 	display: block;
 	z-index: 999999999;
 }
-
+.has-error {
+	border: 1px solid rgba(231, 76, 60, 0.88);
+}
+.mt-5 {
+	margin-top: 5px;
+}
+.fl-100 {
+	float: left;
+	width: 100%;
+}
 .ui-dialog {
 	padding: 0;
 	border: none;
