@@ -17,6 +17,7 @@
 	
 	       <td>
 	       		<a  th:href="@{'/types/' + ${type.id}}"><i class="glyphicon glyphicon-play"></i></a>
+	       		<a  th:href="@{'/types/subtypeservices/' + ${type.id}}"><i class="glyphicon glyphicon-cloud"></i></a>
 	       		<a  th:href="@{'/types/update/' + ${type.id}}"><i class="glyphicon glyphicon-pencil"></i></a>
 	       	    <a th:typeid="${type.id}" onclick="Types.Delete(this);return false;"><i  class="glyphicon glyphicon-remove"></i></a>
 	       </td>
