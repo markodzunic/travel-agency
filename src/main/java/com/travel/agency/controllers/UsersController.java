@@ -1,3 +1,32 @@
+/**
+* ─────────────────────────────────────────────────────────────────────────────────────────────────┐
+* Users controller class designed to handle user related pages.
+*
+* [Additional information about this class should be added here, if available. Add a single line
+* break between the summary and the additional info.  Use as many lines as necessary. Make sure to
+* leave a line break between the class description and the URL Mapping, below.]
+*
+* URL Mapping:  [GET] - /users
+* 				[GET, POST] - /users/create
+* 				[GET, POST] - /users/update/{id}
+* 				[GET, POST] - /users/delete
+* 				[GET] - /users/{id}
+* 				[POST] - /users/refresh
+* 
+* ──────────────────────────────────────────────────────────────────────────────────────────────────
+* @author         KUNA   <soul6reaver@gmail.com>
+* @modifiedBy     KUNA   <soul6reaver@gmail.com>
+* @maintainedBy   KUNA   <soul6reaver@gmail.com>
+* @version        1.0
+* @created        2018-08-01
+* @systemLayer    Controller
+* ──────────────────────────────────────────────────────────────────────────────────────────────────
+* @changes
+* v1.0            soul6reaver@gmail.com
+* 2018-08-01      Changes
+* 
+* ─────────────────────────────────────────────────────────────────────────────────────────────────┘
+*/
 package com.travel.agency.controllers;
 
 import java.util.List;
@@ -36,7 +65,16 @@ public class UsersController {
 
 	@Autowired
 	RoleService roleService;
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Lists all users on this page in table.
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@RequestMapping("users")
 	public String users(Model model) {
 
@@ -45,7 +83,17 @@ public class UsersController {
 
 		return "users/users";
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Opens one selected user to view its details.
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    id       Path variable id for selected user, type int
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@RequestMapping("users/{id}")
 	public String user(@PathVariable("id") int id, Model model) {
 
@@ -54,7 +102,17 @@ public class UsersController {
 
 		return "users/user-profile";
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Opens conformation dialog for deleting selected user.
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    request  Http request for getting params sent
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@GetMapping("users/delete")
 	public String deleteDialog(HttpServletRequest request, Model model) {
 		User user = userService.readById(Integer.valueOf(request.getParameter("id")));
@@ -62,7 +120,17 @@ public class UsersController {
 
 		return "users/user-dialog";
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Used for refreshing table for users on ajax call
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    request  Http request for getting params sent
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@RequestMapping("users/refresh")
 	public String refresh(HttpServletRequest request, Model model) {
 		List<User> user = userService.findAll();
@@ -70,7 +138,17 @@ public class UsersController {
 
 		return "users/users-table";
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Used for deleting user after conformation dialog
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    request  Http request for getting params sent
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   JSON     Returns JSON of user info that is deleted
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@PostMapping(path = "users/delete", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String, Object> delete(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException  {
@@ -81,7 +159,17 @@ public class UsersController {
 		
 		return BikeUtils.convertToHashMap(user, rel);
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Used for opening form html for updating user
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    id       Path variable id for selected user, type int
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@GetMapping(path = "users/update/{id}")
 	public String userForm(@PathVariable("id") int id, Model model) {
 		List<Role> r = roleService.findAll();
@@ -94,7 +182,19 @@ public class UsersController {
 		
 		return "users/user-form";
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Used for submiting form for user update
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    u  	   User that is getting updated, type Class
+	  * @param    db       Binding result used for validation on update
+	  * @param    id       Path variable id of the user that is being updated 
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here, or redirect in success case
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@PostMapping("users/update/{id}")
 	public String update(@Valid @ModelAttribute User u, BindingResult bd, @PathVariable("id") int id, Model model) {
 		
@@ -119,7 +219,16 @@ public class UsersController {
 
 		return "redirect:/users/" + id;
 	}
-
+	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Used for Opening user form for create 
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@GetMapping("users/create")
 	public String userCreate(Model model) {
 		User u = new User();
@@ -132,6 +241,17 @@ public class UsersController {
 		return "users/user-form";
 	}
 	
+	/**
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┐
+	  * Used for submiting form on user create
+	  * ────────────────────────────────────────────────────────────────────────────────────────────────
+	  * @param    u  	   User that is getting updated, type Class
+	  * @param    db       Binding result used for validation on update
+	  * @param    Model    Model in which data is passed for accessing in HTML
+	  * @return   String   Returns HTML template which is processing here, or redirect if successful
+	  * @author   KUNA    
+	  * ───────────────────────────────────────────────────────────────────────────────────────────────┘
+	  */
 	@PostMapping("users/create")
 	public String create(@Valid @ModelAttribute User u, BindingResult bd, Model model) {
 		
@@ -155,5 +275,4 @@ public class UsersController {
 		
 		return "redirect:/users";		
 	}
-
 }
