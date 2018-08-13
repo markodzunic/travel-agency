@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.travel.agency.entities.City;
+import com.travel.agency.entities.Country;
+import com.travel.agency.entities.SubtypeRoom;
 import com.travel.agency.entities.Type;
+import com.travel.agency.services.SubtypeRoomService;
 import com.travel.agency.services.TypeService;
 import com.travel.agency.utils.BikeUtils;
 
@@ -29,6 +32,9 @@ public class TypeController {
 	
 	@Autowired
 	TypeService typeService;
+	
+	@Autowired
+	SubtypeRoomService subtypeRoomService;
 	
 	
 	@GetMapping("/types")
@@ -40,6 +46,25 @@ public class TypeController {
 		return "types/types";
 				
 	}
+	
+	
+	
+	
+	   //play button 
+	
+		@GetMapping("types/{id}")
+		public String subtype(@PathVariable("id") int id, Model model) {
+			
+			List<SubtypeRoom> city = subtypeRoomService.findAll(); 
+			
+			Type country = typeService.readById(id);
+			model.addAttribute("types", country);
+			model.addAttribute("subtyperooms",city);
+
+			return "subtyperooms/subtyperooms";
+		}
+		
+	
 	
 	
 	

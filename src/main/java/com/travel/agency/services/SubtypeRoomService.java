@@ -3,12 +3,13 @@ package com.travel.agency.services;
 import java.util.List;
 
 import com.travel.agency.entities.SubtypeRoom;
+import com.travel.agency.entities.SubtypeService;
 
 public interface SubtypeRoomService {
 
     List<SubtypeRoom> findAll();
+    SubtypeRoom readById(Integer id);
 	
-	SubtypeRoom readById(Integer id);
 	
 	public boolean delete(SubtypeRoom obj);
 	
