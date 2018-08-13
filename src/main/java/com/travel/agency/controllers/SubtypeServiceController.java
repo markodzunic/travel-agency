@@ -13,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.travel.agency.entities.City;
+import com.travel.agency.entities.Country;
 import com.travel.agency.entities.SubtypeService;
 import com.travel.agency.entities.Type;
 import com.travel.agency.services.SubtypeServiceService;
@@ -34,7 +36,7 @@ public class SubtypeServiceController {
 	SubtypeServiceService subtypeServiceService;
 	
 	//list of services
-	@GetMapping("/types/subtypeservices")
+	@GetMapping("/types/subtypeservices/{id}")
 	public String subtypes(Model model) {
 		List<SubtypeService> service= subtypeServiceService.findAll();
 		model.addAttribute("subtypeservices",service);
@@ -108,9 +110,53 @@ public class SubtypeServiceController {
 			model.addAttribute("subtypeservice", c);
 			subtypeServiceService.save(c);
 
-			return "redirect:/types/"+c.getType().getId();
+			return "redirect:/types/subtypeservices/"+c.getType().getId();
 			
 		
+		}
+		
+		
+		
+		
+		//update subtype service get method
+		
+		@GetMapping("subtypeservices/update/{id}")
+		public String cityUpdate(@PathVariable("id") int id,Model model) {
+			
+		List<Type> type = typeService.findAll();
+		SubtypeService c = subtypeServiceService.readById(Integer.valueOf(id));
+			
+		model.addAttribute("subtypeservice", c);
+		model.addAttribute("path","/subtypeservices/update/" + id);
+		model.addAttribute("types", type);
+		
+			return "subtypeservices/subtypeservice-form";
+					
+		}
+		
+		
+		//update subtype service post method
+		
+		@PostMapping("subtypeservices/update/{id}")
+		public String updateCity(@Valid @ModelAttribute SubtypeService c, BindingResult bd, Model model) {
+			List<Type> type = typeService.findAll();
+			
+			if (bd.hasErrors()) {
+				model.addAttribute("subtypeservice", c);
+				model.addAttribute("types",type);
+				model.addAttribute("path", "/subtypeservices/update/"+c.getId());
+	            return "subtypeservices/subtypeservice-form";
+	        }
+			
+			model.addAttribute("subtypeservice", c);
+			
+			
+			
+			subtypeServiceService.update(c);
+			
+			return "redirect:/types/subtypeservices/"+c.getType().getId();
+			
+			
 		}
 		
 		
