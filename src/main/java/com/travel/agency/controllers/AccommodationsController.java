@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.travel.agency.entities.Accommodation;
 import com.travel.agency.entities.City;
 import com.travel.agency.entities.Company;
-import com.travel.agency.entities.Room;
+
 import com.travel.agency.entities.Type;
 import com.travel.agency.services.AccommodationService;
 import com.travel.agency.services.CityService;
@@ -164,12 +164,12 @@ public class AccommodationsController {
 		
 		//update acccommodations post method 
 		
-		@PostMapping("acccommodations/update/{id}")
+		@PostMapping("accommodations/update/{id}")
 		public String updateAccomodation(@Valid @ModelAttribute Accommodation c, BindingResult bd, Model model) {
 
 			
 			if (bd.hasErrors()) {
-				model.addAttribute("acccommodation", c);
+				model.addAttribute("accommodation", c);
 				
 				List<Type> types = typeService.findAll();
 				List<Company> companies = companyService.findAll();
@@ -182,10 +182,8 @@ public class AccommodationsController {
 	            return "accommodations/accommodation-form";
 	        }
 			
+			
 			model.addAttribute("accommodation", c);
-			
-			
-			
 			accommodationService.update(c);
 			
 			return "redirect:/accommodations";
