@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+	
+	<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+	   <thead>
+	     <tr>
+	       <th th:text="${'Name'}"></th>
+	       <th th:text="${'City'}"></th>
+	       <th th:text="${'Type'}"></th>
+	       <th th:text="${'Company'}"></th>
+	       <th th:text="${'Is Available'}"></th>
+	       <th th:text="${'Actions'}"></th>
+	
+	     </tr>
+	   </thead>
+	   <tbody>
+	     <tr th:each="accommodation : ${accommodations}">
+	       <td th:text="${accommodation.name}"></td>
+	       <td th:text="${accommodation.city.name}"></td>
+	       <td th:text="${accommodation.type.name}"></td>
+	       <td th:text="${accommodation.company.name}"></td>
+	       <td th:text="${accommodation.isAvailable}"></td>
+	      
+	       <td>
+	       		<a  th:href="@{'/accommodations/' + ${accommodation.id}}" class="btn btn-primary btn-xs" th:text="View"><i class="fa fa-folder"></i></a>
+	       		<a th:href="@{'/accommodations/update/' + ${accommodation.id}}" class="btn btn-info btn-xs" th:text="Edit"><i class="fa fa-pencil"></i></a>
+	       		<a th:accommodationid="${accommodation.id}" onclick="Accommodations.Delete(this);return false;" class="btn btn-danger btn-xs" th:text="Delete"><i  class="fa fa-trash-o"></i></a>
+	       </td>
+	     </tr>
+	   </tbody>
+	 </table>
+	 
 </html>

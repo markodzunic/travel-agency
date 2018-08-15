@@ -1,7 +1,7 @@
 var Accommodations = {
 		init: function () {
 			$("#datatable-responsive").DataTable({
-	        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [9]}]
+	        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [5]}]
 	        });
 		},
 		
@@ -18,7 +18,7 @@ var Accommodations = {
 					$('#accommodations-table').html(result);
 					
 					$("#datatable-responsive").DataTable({
-			        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [9]}]
+			        	"aoColumnDefs": [{ "bSortable": false, "aTargets": [5]}]
 			        });
 					
 					App.loadAjax('unmask');
