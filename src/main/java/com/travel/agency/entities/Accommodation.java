@@ -48,7 +48,9 @@ public class Accommodation implements Serializable {
 	private String name;
 
 	private String thumb;
-
+	
+	private List<Image> images;
+	
 	//bi-directional many-to-one association to City
 	@ManyToOne
 	@JoinColumn(name="cities_id")
@@ -84,7 +86,17 @@ public class Accommodation implements Serializable {
 	//bi-directional many-to-one association to WishlistsAccommodation
 	@OneToMany(mappedBy="accommodation")
 	private List<WishlistsAccommodation> wishlistsAccommodations;
-
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "images_accommodations", joinColumns = @JoinColumn(name = "accommodations_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "images_id", referencedColumnName = "id"))
+    public List<Image> getImages() {
+        return images;
+    }
+	
+	public void setImages(List<Image> images) {
+        this.images = images;
+    }
+	
 	public Accommodation() {
 	}
 

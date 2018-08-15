@@ -22,8 +22,12 @@
 	       <td th:text="${accommodation.city.name}"></td>
 	       <td th:text="${accommodation.type.name}"></td>
 	       <td th:text="${accommodation.company.name}"></td>
-	       <td th:text="${accommodation.isAvailable}"></td>
-	      
+	       <td th:text="${accommodation.isAvailable}">
+	       	<div th:each="acc : *{accommodation.images}">
+	       		img
+	       	</div>
+	       </td>
+	      	
 	       <td>
 	       		<a  th:href="@{'/accommodations/' + ${accommodation.id}}" class="btn btn-primary btn-xs" th:text="View"><i class="fa fa-folder"></i></a>
 	       		<a th:href="@{'/accommodations/update/' + ${accommodation.id}}" class="btn btn-info btn-xs" th:text="Edit"><i class="fa fa-pencil"></i></a>
