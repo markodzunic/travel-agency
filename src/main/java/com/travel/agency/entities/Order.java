@@ -40,33 +40,53 @@ public class Order implements Serializable {
 	@Id
 	private int id;
 
-//	@Column(name="admin_id")
-//	private int adminId;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_current")
+	private Date dateCurrent;
 
-	@Column(name="current_payment")
-	private double currentPayment;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="date_last")
+	private Date dateLast;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name="order_date")
-	private Date orderDate;
+	private String discount;
 
-	private byte paid;
+	@Column(name="past_payments")
+	private String pastPayments;
+
+	@Column(name="payment_method")
+	private String paymentMethod;
 
 	@Column(name="total_price")
-	private double totalPrice;
+	private String totalPrice;
 
-	//bi-directional many-to-one association to OrderApartment
-	@OneToMany(mappedBy="order")
-	private List<OrderApartment> orderApartments;
+	//bi-directional many-to-one association to OrdersAccommodation
+	@ManyToOne
+	@JoinColumn(name="accommodations_id")
+	private OrdersAccommodation ordersAccommodation;
+
+	//bi-directional many-to-one association to Status
+	@ManyToOne
+	@JoinColumn(name="statuses_id")
+	private Status status;
+
+	//bi-directional many-to-one association to Transport
+	@ManyToOne
+	@JoinColumn(name="transports_id")
+	private Transport transport;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="users_id")
-	private User user;
-	
+	private User user1;
+
+	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="admin_id")
-	private User admin;
+	@JoinColumn(name="admins_id")
+	private User user2;
+
+	//bi-directional many-to-one association to OrdersAccommodation
+	@OneToMany(mappedBy="order")
+	private List<OrdersAccommodation> ordersAccommodations;
 
 	public Order() {
 	}
@@ -79,82 +99,114 @@ public class Order implements Serializable {
 		this.id = id;
 	}
 
-//	public int getAdminId() {
-//		return this.adminId;
-//	}
-//
-//	public void setAdminId(int adminId) {
-//		this.adminId = adminId;
-//	}
-
-	public double getCurrentPayment() {
-		return this.currentPayment;
+	public Date getDateCurrent() {
+		return this.dateCurrent;
 	}
 
-	public void setCurrentPayment(double currentPayment) {
-		this.currentPayment = currentPayment;
+	public void setDateCurrent(Date dateCurrent) {
+		this.dateCurrent = dateCurrent;
 	}
 
-	public Date getOrderDate() {
-		return this.orderDate;
+	public Date getDateLast() {
+		return this.dateLast;
 	}
 
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setDateLast(Date dateLast) {
+		this.dateLast = dateLast;
 	}
 
-	public byte getPaid() {
-		return this.paid;
+	public String getDiscount() {
+		return this.discount;
 	}
 
-	public void setPaid(byte paid) {
-		this.paid = paid;
+	public void setDiscount(String discount) {
+		this.discount = discount;
 	}
 
-	public double getTotalPrice() {
+	public String getPastPayments() {
+		return this.pastPayments;
+	}
+
+	public void setPastPayments(String pastPayments) {
+		this.pastPayments = pastPayments;
+	}
+
+	public String getPaymentMethod() {
+		return this.paymentMethod;
+	}
+
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	public String getTotalPrice() {
 		return this.totalPrice;
 	}
 
-	public void setTotalPrice(double totalPrice) {
+	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<OrderApartment> getOrderApartments() {
-		return this.orderApartments;
+	public OrdersAccommodation getOrdersAccommodation() {
+		return this.ordersAccommodation;
 	}
 
-	public void setOrderApartments(List<OrderApartment> orderApartments) {
-		this.orderApartments = orderApartments;
+	public void setOrdersAccommodation(OrdersAccommodation ordersAccommodation) {
+		this.ordersAccommodation = ordersAccommodation;
 	}
 
-	public OrderApartment addOrderApartment(OrderApartment orderApartment) {
-		getOrderApartments().add(orderApartment);
-		orderApartment.setOrder(this);
-
-		return orderApartment;
+	public Status getStatus() {
+		return this.status;
 	}
 
-	public OrderApartment removeOrderApartment(OrderApartment orderApartment) {
-		getOrderApartments().remove(orderApartment);
-		orderApartment.setOrder(null);
-
-		return orderApartment;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
-	public User getUser() {
-		return this.user;
+	public Transport getTransport() {
+		return this.transport;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setTransport(Transport transport) {
+		this.transport = transport;
 	}
 
-	public User getAdmin() {
-		return admin;
+	public User getUser1() {
+		return this.user1;
 	}
 
-	public void setAdmin(User admin) {
-		this.admin = admin;
+	public void setUser1(User user1) {
+		this.user1 = user1;
 	}
-	
+
+	public User getUser2() {
+		return this.user2;
+	}
+
+	public void setUser2(User user2) {
+		this.user2 = user2;
+	}
+
+	public List<OrdersAccommodation> getOrdersAccommodations() {
+		return this.ordersAccommodations;
+	}
+
+	public void setOrdersAccommodations(List<OrdersAccommodation> ordersAccommodations) {
+		this.ordersAccommodations = ordersAccommodations;
+	}
+
+	public OrdersAccommodation addOrdersAccommodation(OrdersAccommodation ordersAccommodation) {
+		getOrdersAccommodations().add(ordersAccommodation);
+		ordersAccommodation.setOrder(this);
+
+		return ordersAccommodation;
+	}
+
+	public OrdersAccommodation removeOrdersAccommodation(OrdersAccommodation ordersAccommodation) {
+		getOrdersAccommodations().remove(ordersAccommodation);
+		ordersAccommodation.setOrder(null);
+
+		return ordersAccommodation;
+	}
+
 }

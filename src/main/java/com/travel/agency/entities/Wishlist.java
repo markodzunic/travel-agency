@@ -6,28 +6,29 @@ import java.util.List;
 
 
 /**
- * The persistent class for the wishlist database table.
+ * The persistent class for the wishlists database table.
  * 
  */
 @Entity
+@Table(name="wishlists")
 @NamedNativeQueries({
     @NamedNativeQuery(
             name    =   "getAllWishlist",
             query   =   "SELECT * " +
-                        "FROM wishlist",
+                        "FROM wishlists",
                         resultClass=Wishlist.class
     ),
     @NamedNativeQuery(
             name	=   "getAllByIdWishlist",
             query   =   "SELECT * " +
-                        "FROM wishlist " +
+                        "FROM wishlists " +
                         "WHERE id = :id",
                         resultClass=Wishlist.class
     ),
     @NamedNativeQuery(
     		name	=	"getAllByFieldWishlist",
     		query	=	"SELECT * "+
-    					"FROM wishlist "+
+    					"FROM wishlists "+
     					"WHERE :nameColumn = :value",
     					resultClass=Wishlist.class
 	)
@@ -45,9 +46,9 @@ public class Wishlist implements Serializable {
 	@JoinColumn(name="users_id")
 	private User user;
 
-	//bi-directional many-to-one association to WishlistApartment
+	//bi-directional many-to-one association to WishlistsAccommodation
 	@OneToMany(mappedBy="wishlist")
-	private List<WishlistApartment> wishlistApartments;
+	private List<WishlistsAccommodation> wishlistsAccommodations;
 
 	public Wishlist() {
 	}
@@ -76,26 +77,26 @@ public class Wishlist implements Serializable {
 		this.user = user;
 	}
 
-	public List<WishlistApartment> getWishlistApartments() {
-		return this.wishlistApartments;
+	public List<WishlistsAccommodation> getWishlistsAccommodations() {
+		return this.wishlistsAccommodations;
 	}
 
-	public void setWishlistApartments(List<WishlistApartment> wishlistApartments) {
-		this.wishlistApartments = wishlistApartments;
+	public void setWishlistsAccommodations(List<WishlistsAccommodation> wishlistsAccommodations) {
+		this.wishlistsAccommodations = wishlistsAccommodations;
 	}
 
-	public WishlistApartment addWishlistApartment(WishlistApartment wishlistApartment) {
-		getWishlistApartments().add(wishlistApartment);
-		wishlistApartment.setWishlist(this);
+	public WishlistsAccommodation addWishlistsAccommodation(WishlistsAccommodation wishlistsAccommodation) {
+		getWishlistsAccommodations().add(wishlistsAccommodation);
+		wishlistsAccommodation.setWishlist(this);
 
-		return wishlistApartment;
+		return wishlistsAccommodation;
 	}
 
-	public WishlistApartment removeWishlistApartment(WishlistApartment wishlistApartment) {
-		getWishlistApartments().remove(wishlistApartment);
-		wishlistApartment.setWishlist(null);
+	public WishlistsAccommodation removeWishlistsAccommodation(WishlistsAccommodation wishlistsAccommodation) {
+		getWishlistsAccommodations().remove(wishlistsAccommodation);
+		wishlistsAccommodation.setWishlist(null);
 
-		return wishlistApartment;
+		return wishlistsAccommodation;
 	}
 
 }

@@ -53,9 +53,9 @@ public class Company implements Serializable {
 
 	private String website;
 
-	//bi-directional many-to-one association to Apartment
+	//bi-directional many-to-one association to Accommodation
 	@OneToMany(mappedBy="company")
-	private List<Apartment> apartments;
+	private List<Accommodation> accommodations;
 
 	public Company() {
 	}
@@ -124,26 +124,26 @@ public class Company implements Serializable {
 		this.website = website;
 	}
 
-	public List<Apartment> getApartments() {
-		return this.apartments;
+	public List<Accommodation> getAccommodations() {
+		return this.accommodations;
 	}
 
-	public void setApartments(List<Apartment> apartments) {
-		this.apartments = apartments;
+	public void setAccommodations(List<Accommodation> accommodations) {
+		this.accommodations = accommodations;
 	}
 
-	public Apartment addApartment(Apartment apartment) {
-		getApartments().add(apartment);
-		apartment.setCompany(this);
+	public Accommodation addAccommodation(Accommodation accommodation) {
+		getAccommodations().add(accommodation);
+		accommodation.setCompany(this);
 
-		return apartment;
+		return accommodation;
 	}
 
-	public Apartment removeApartment(Apartment apartment) {
-		getApartments().remove(apartment);
-		apartment.setCompany(null);
+	public Accommodation removeAccommodation(Accommodation accommodation) {
+		getAccommodations().remove(accommodation);
+		accommodation.setCompany(null);
 
-		return apartment;
+		return accommodation;
 	}
 
 }

@@ -67,7 +67,7 @@ public class CompaniesController {
 				public Map<String, Object> delete(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException {
 					Company company = companyService.readById(Integer.valueOf(request.getParameter("id")));
 					companyService.delete(company);
-					String [] rel = {"apartments"};
+					String [] rel = {"accommodations"};
 
 					return BikeUtils.convertToHashMap(company,rel);
 				

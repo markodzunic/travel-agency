@@ -6,34 +6,34 @@ import java.util.List;
 
 
 /**
- * The persistent class for the countries database table.
+ * The persistent class for the regions database table.
  * 
  */
 @Entity
-@Table(name="countries")
+@Table(name="regions")
 @NamedNativeQueries({
     @NamedNativeQuery(
-            name    =   "getAllCountry",
+            name    =   "getAllRegion",
             query   =   "SELECT * " +
-                        "FROM countries",
-                        resultClass=Country.class
+                        "FROM regions",
+                        resultClass=Region.class
     ),
     @NamedNativeQuery(
-            name	=   "getAllByIdCountry",
+            name	=   "getAllByIdRegion",
             query   =   "SELECT * " +
-                        "FROM countries " +
+                        "FROM regions " +
                         "WHERE id = :id",
-                        resultClass=Country.class
+                        resultClass=Region.class
     ),
     @NamedNativeQuery(
-    		name	=	"getAllByFieldCountry",
+    		name	=	"getAllByFieldRegion",
     		query	=	"SELECT *"+
-    					"FROM countries"+
+    					"FROM regions"+
     					"WHERE :nameColumn = :value",
-    					resultClass=Country.class
+    					resultClass=Region.class
 	)
 })
-public class Country implements Serializable {
+public class Region implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,14 +45,15 @@ public class Country implements Serializable {
 	private String systemName;
 
 	//bi-directional many-to-one association to City
-	@OneToMany(mappedBy="country")
+	@OneToMany(mappedBy="region")
 	private List<City> cities;
 
-	//bi-directional many-to-one association to Region
-	@OneToMany(mappedBy="country")
-	private List<Region> regions;
+	//bi-directional many-to-one association to Country
+	@ManyToOne
+	@JoinColumn(name="countries_id")
+	private Country country;
 
-	public Country() {
+	public Region() {
 	}
 
 	public int getId() {
@@ -89,38 +90,24 @@ public class Country implements Serializable {
 
 	public City addCity(City city) {
 		getCities().add(city);
-		city.setCountry(this);
+		city.setRegion(this);
 
 		return city;
 	}
 
 	public City removeCity(City city) {
 		getCities().remove(city);
-		city.setCountry(null);
+		city.setRegion(null);
 
 		return city;
 	}
 
-	public List<Region> getRegions() {
-		return this.regions;
+	public Country getCountry() {
+		return this.country;
 	}
 
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
-	}
-
-	public Region addRegion(Region region) {
-		getRegions().add(region);
-		region.setCountry(this);
-
-		return region;
-	}
-
-	public Region removeRegion(Region region) {
-		getRegions().remove(region);
-		region.setCountry(null);
-
-		return region;
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 
 }
