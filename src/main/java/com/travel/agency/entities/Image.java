@@ -42,11 +42,22 @@ public class Image implements Serializable {
 	private String name;
 
 	private String path;
-
+	
+	private List<Accommodation> accommodations;
+	
 	//bi-directional many-to-one association to ImagesAccommodation
 	@OneToMany(mappedBy="image")
 	private List<ImagesAccommodation> imagesAccommodations;
+	
+	@ManyToMany(mappedBy = "images")
+    public List<Accommodation> getAccommodations() {
+        return accommodations;
+    }
 
+    public void setAccommodations(List<Accommodation> accommodations) {
+        this.accommodations = accommodations;
+    }
+	
 	public Image() {
 	}
 
