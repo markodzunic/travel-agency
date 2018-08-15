@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	layout:decorate="~{layouts/base-template}">
+  
+  <body class="nav-md">
+        <!-- page content -->
+        <div layout:fragment="content" class="right_col" role="main">    
+    
+    <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Accommodation Form <small>Accommodation</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form   th:action="@{${path}}" th:object="${accommodation}" id="accommodation" method="post" data-parsley-validate class="form-horizontal form-label-left">
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Add accommodation<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="name"  class="form-control col-md-7 col-xs-12"   placeholder="Accommodation" th:name="name" th:field="*{name}">
+                        
+                        </div>
+                        
+                      </div>
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="thumb">Thumb<span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="thumb"  class="form-control col-md-7 col-xs-12"   placeholder="Thumb" th:name="thumb" th:field="*{thumb}">
+                        
+                        </div>
+                      </div>       	                           
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" th:name="company" th:field="*{company}" id="company" th:errorclass="is-invalid">
+                           	<option th:each="company: ${companies}" th:text="${company.getName()}" th:value="${company.getId()}"></option>                        
+                          </select>
+                          <div th:if="${#fields.hasErrors('company')}" th:errors="*{company}" class="invalid-feedback"></div>
+                        </div>
+                      </div>     
+                      
+                      
+                       <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" th:name="city" th:field="*{city}" id="city" th:errorclass="is-invalid">
+                           	<option th:each="city: ${cities}" th:text="${city.getName()}" th:value="${city.getId()}"></option>                        
+                          </select>
+                          <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="invalid-feedback"></div>
+                        </div>
+                      </div> 
+                      
+                        <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type<span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select class="form-control" th:name="type" th:field="*{type}" id="type" th:errorclass="is-invalid">
+                           	<option th:each="type: ${types}" th:text="${type.getName()}" th:value="${type.getId()}"></option>                        
+                          </select>
+                          <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="invalid-feedback"></div>
+                        </div>
+                      </div> 
+                      
+                      
+                        <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Description <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <textarea id="description" th:name="description" class="form-control col-md-7 col-xs-12" th:field="*{descrtiption}" placeholder="Description"></textarea>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Is Available</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div id="isAvailable" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" th:name="isAvailable" value="1" th:field="*{isAvailable}"> &nbsp; Yes &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" th:name="isAvailable" value="0" th:field="*{isAvailable}"> &nbsp; No &nbsp;
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+                         
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                           <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </body>
+              </html>

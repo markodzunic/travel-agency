@@ -154,6 +154,14 @@
                           
                         </div>
                       </div>
+                           <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Social Security </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" class="form-control"  placeholder="Social Security" th:name="socialSecurity" th:field="*{socialSecurity}" th:errorclass="has-error" id="socialSecurity">
+                          
+                          <div th:if="${#fields.hasErrors('socialSecurity')}" th:errors="*{socialSecurity}" class="alert alert-danger mt-5 fl-100"></div>
+                        </div>
+                      </div>
                       
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Passport </label>

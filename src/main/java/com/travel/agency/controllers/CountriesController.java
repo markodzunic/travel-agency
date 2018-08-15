@@ -126,7 +126,7 @@ public class CountriesController {
             return "countries/country-form";
         }
 		
-		
+		u.setSystemName(u.getName().trim().toLowerCase().replaceAll(" ", "_"));
 		countryService.save(u);
 		model.addAttribute("country",u);
 		

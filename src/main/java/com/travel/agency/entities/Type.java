@@ -44,17 +44,9 @@ public class Type implements Serializable {
 	@Column(name="system_name")
 	private String systemName;
 
-	//bi-directional many-to-one association to Apartment
+	//bi-directional many-to-one association to Accommodation
 	@OneToMany(mappedBy="type")
-	private List<Apartment> apartments;
-
-	//bi-directional many-to-one association to SubtypeRoom
-	@OneToMany(mappedBy="type")
-	private List<SubtypeRoom> subtypeRooms;
-
-	//bi-directional many-to-one association to SubtypeService
-	@OneToMany(mappedBy="type")
-	private List<SubtypeService> subtypeServices;
+	private List<Accommodation> accommodations;
 
 	public Type() {
 	}
@@ -83,70 +75,26 @@ public class Type implements Serializable {
 		this.systemName = systemName;
 	}
 
-	public List<Apartment> getApartments() {
-		return this.apartments;
+	public List<Accommodation> getAccommodations() {
+		return this.accommodations;
 	}
 
-	public void setApartments(List<Apartment> apartments) {
-		this.apartments = apartments;
+	public void setAccommodations(List<Accommodation> accommodations) {
+		this.accommodations = accommodations;
 	}
 
-	public Apartment addApartment(Apartment apartment) {
-		getApartments().add(apartment);
-		apartment.setType(this);
+	public Accommodation addAccommodation(Accommodation accommodation) {
+		getAccommodations().add(accommodation);
+		accommodation.setType(this);
 
-		return apartment;
+		return accommodation;
 	}
 
-	public Apartment removeApartment(Apartment apartment) {
-		getApartments().remove(apartment);
-		apartment.setType(null);
+	public Accommodation removeAccommodation(Accommodation accommodation) {
+		getAccommodations().remove(accommodation);
+		accommodation.setType(null);
 
-		return apartment;
-	}
-
-	public List<SubtypeRoom> getSubtypeRooms() {
-		return this.subtypeRooms;
-	}
-
-	public void setSubtypeRooms(List<SubtypeRoom> subtypeRooms) {
-		this.subtypeRooms = subtypeRooms;
-	}
-
-	public SubtypeRoom addSubtypeRoom(SubtypeRoom subtypeRoom) {
-		getSubtypeRooms().add(subtypeRoom);
-		subtypeRoom.setType(this);
-
-		return subtypeRoom;
-	}
-
-	public SubtypeRoom removeSubtypeRoom(SubtypeRoom subtypeRoom) {
-		getSubtypeRooms().remove(subtypeRoom);
-		subtypeRoom.setType(null);
-
-		return subtypeRoom;
-	}
-
-	public List<SubtypeService> getSubtypeServices() {
-		return this.subtypeServices;
-	}
-
-	public void setSubtypeServices(List<SubtypeService> subtypeServices) {
-		this.subtypeServices = subtypeServices;
-	}
-
-	public SubtypeService addSubtypeService(SubtypeService subtypeService) {
-		getSubtypeServices().add(subtypeService);
-		subtypeService.setType(this);
-
-		return subtypeService;
-	}
-
-	public SubtypeService removeSubtypeService(SubtypeService subtypeService) {
-		getSubtypeServices().remove(subtypeService);
-		subtypeService.setType(null);
-
-		return subtypeService;
+		return accommodation;
 	}
 
 }

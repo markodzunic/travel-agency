@@ -43,13 +43,9 @@ public class Image implements Serializable {
 
 	private String path;
 
-	//bi-directional many-to-one association to Apartment
+	//bi-directional many-to-one association to ImagesAccommodation
 	@OneToMany(mappedBy="image")
-	private List<Apartment> apartments;
-
-	//bi-directional many-to-one association to ImagesApartment
-	@OneToMany(mappedBy="image")
-	private List<ImagesApartment> imagesApartments;
+	private List<ImagesAccommodation> imagesAccommodations;
 
 	public Image() {
 	}
@@ -78,48 +74,26 @@ public class Image implements Serializable {
 		this.path = path;
 	}
 
-	public List<Apartment> getApartments() {
-		return this.apartments;
+	public List<ImagesAccommodation> getImagesAccommodations() {
+		return this.imagesAccommodations;
 	}
 
-	public void setApartments(List<Apartment> apartments) {
-		this.apartments = apartments;
+	public void setImagesAccommodations(List<ImagesAccommodation> imagesAccommodations) {
+		this.imagesAccommodations = imagesAccommodations;
 	}
 
-	public Apartment addApartment(Apartment apartment) {
-		getApartments().add(apartment);
-		apartment.setImage(this);
+	public ImagesAccommodation addImagesAccommodation(ImagesAccommodation imagesAccommodation) {
+		getImagesAccommodations().add(imagesAccommodation);
+		imagesAccommodation.setImage(this);
 
-		return apartment;
+		return imagesAccommodation;
 	}
 
-	public Apartment removeApartment(Apartment apartment) {
-		getApartments().remove(apartment);
-		apartment.setImage(null);
+	public ImagesAccommodation removeImagesAccommodation(ImagesAccommodation imagesAccommodation) {
+		getImagesAccommodations().remove(imagesAccommodation);
+		imagesAccommodation.setImage(null);
 
-		return apartment;
-	}
-
-	public List<ImagesApartment> getImagesApartments() {
-		return this.imagesApartments;
-	}
-
-	public void setImagesApartments(List<ImagesApartment> imagesApartments) {
-		this.imagesApartments = imagesApartments;
-	}
-
-	public ImagesApartment addImagesApartment(ImagesApartment imagesApartment) {
-		getImagesApartments().add(imagesApartment);
-		imagesApartment.setImage(this);
-
-		return imagesApartment;
-	}
-
-	public ImagesApartment removeImagesApartment(ImagesApartment imagesApartment) {
-		getImagesApartments().remove(imagesApartment);
-		imagesApartment.setImage(null);
-
-		return imagesApartment;
+		return imagesAccommodation;
 	}
 
 }

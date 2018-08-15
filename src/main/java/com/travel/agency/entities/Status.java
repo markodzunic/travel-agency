@@ -6,34 +6,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the transports database table.
+ * The persistent class for the statuses database table.
  * 
  */
 @Entity
-@Table(name="transports")
-@NamedNativeQueries({
-    @NamedNativeQuery(
-            name    =   "getAllTransport",
-            query   =   "SELECT * " +
-                        "FROM transports",
-                        resultClass=Transport.class
-    ),
-    @NamedNativeQuery(
-            name	=   "getAllByIdTransport",
-            query   =   "SELECT * " +
-                        "FROM transports " +
-                        "WHERE id = :id",
-                        resultClass=Transport.class
-    ),
-    @NamedNativeQuery(
-    		name	=	"getAllByFieldTransport",
-    		query	=	"SELECT * "+
-    					"FROM transports "+
-    					"WHERE :nameColumn = :value",
-    					resultClass=Transport.class
-	)
-})
-public class Transport implements Serializable {
+@Table(name="statuses")
+@NamedQuery(name="Status.findAll", query="SELECT s FROM Status s")
+public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,10 +24,10 @@ public class Transport implements Serializable {
 	private String systemName;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="transport")
+	@OneToMany(mappedBy="status")
 	private List<Order> orders;
 
-	public Transport() {
+	public Status() {
 	}
 
 	public int getId() {
@@ -85,14 +64,14 @@ public class Transport implements Serializable {
 
 	public Order addOrder(Order order) {
 		getOrders().add(order);
-		order.setTransport(this);
+		order.setStatus(this);
 
 		return order;
 	}
 
 	public Order removeOrder(Order order) {
 		getOrders().remove(order);
-		order.setTransport(null);
+		order.setStatus(null);
 
 		return order;
 	}

@@ -37,19 +37,26 @@ public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
-	//bi-directional many-to-one association to Apartment
+	@Column(name="system_name")
+	private String systemName;
+
+	//bi-directional many-to-one association to Accommodation
 	@OneToMany(mappedBy="city")
-	private List<Apartment> apartments;
+	private List<Accommodation> accommodations;
 
 	//bi-directional many-to-one association to Country
 	@ManyToOne
 	@JoinColumn(name="countries_id")
 	private Country country;
+
+	//bi-directional many-to-one association to Region
+	@ManyToOne
+	@JoinColumn(name="regions_id")
+	private Region region;
 
 	public City() {
 	}
@@ -70,26 +77,34 @@ public class City implements Serializable {
 		this.name = name;
 	}
 
-	public List<Apartment> getApartments() {
-		return this.apartments;
+	public String getSystemName() {
+		return this.systemName;
 	}
 
-	public void setApartments(List<Apartment> apartments) {
-		this.apartments = apartments;
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
 	}
 
-	public Apartment addApartment(Apartment apartment) {
-		getApartments().add(apartment);
-		apartment.setCity(this);
-
-		return apartment;
+	public List<Accommodation> getAccommodations() {
+		return this.accommodations;
 	}
 
-	public Apartment removeApartment(Apartment apartment) {
-		getApartments().remove(apartment);
-		apartment.setCity(null);
+	public void setAccommodations(List<Accommodation> accommodations) {
+		this.accommodations = accommodations;
+	}
 
-		return apartment;
+	public Accommodation addAccommodation(Accommodation accommodation) {
+		getAccommodations().add(accommodation);
+		accommodation.setCity(this);
+
+		return accommodation;
+	}
+
+	public Accommodation removeAccommodation(Accommodation accommodation) {
+		getAccommodations().remove(accommodation);
+		accommodation.setCity(null);
+
+		return accommodation;
 	}
 
 	public Country getCountry() {
@@ -98,6 +113,14 @@ public class City implements Serializable {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public Region getRegion() {
+		return this.region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 
 }

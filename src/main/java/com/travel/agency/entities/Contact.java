@@ -5,10 +5,11 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the contact database table.
+ * The persistent class for the contacts database table.
  * 
  */
 @Entity
+@Table(name="contacts")
 @NamedQuery(name="Contact.findAll", query="SELECT c FROM Contact c")
 public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;

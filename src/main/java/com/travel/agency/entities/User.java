@@ -6,26 +6,25 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.travel.agency.annotation.UniqueUser;
 
 import java.util.Date;
 import java.util.List;
+
 
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name = "users")
+@Table(name="users")
 @NamedNativeQueries({
-		@NamedNativeQuery(name = "getAllUser", query = "SELECT * " + "FROM users", resultClass = User.class),
-		@NamedNativeQuery(name = "getAllByIdUser", query = "SELECT * " + "FROM users "
-				+ "WHERE id = :id", resultClass = User.class),
-		@NamedNativeQuery(name = "getAllByFieldUser", query = "SELECT * " + "FROM users "
-				+ "WHERE :nameColumn = :value", resultClass = User.class) })
+	@NamedNativeQuery(name = "getAllUser", query = "SELECT * " + "FROM users", resultClass = User.class),
+	@NamedNativeQuery(name = "getAllByIdUser", query = "SELECT * " + "FROM users "
+			+ "WHERE id = :id", resultClass = User.class),
+	@NamedNativeQuery(name = "getAllByFieldUser", query = "SELECT * " + "FROM users "
+			+ "WHERE :nameColumn = :value", resultClass = User.class) })
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +32,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private int active;
+	private byte active;
 
 	private String adress;
 
@@ -56,7 +55,7 @@ public class User implements Serializable {
 	@Size(min = 3, max = 30)
 	private String lastName;
 
-	@Column(name = "middle_name")
+	@Column(name="middle_name")
 	private String middleName;
 
 	@NotNull(message = "Name can not be empty")
@@ -71,6 +70,9 @@ public class User implements Serializable {
 
 	private String phone;
 
+	@Column(name="social_security")
+	private String socialSecurity;
+
 	private String state;
 
 	@NotNull(message = "Username can not be empty")
@@ -78,17 +80,21 @@ public class User implements Serializable {
 	@UniqueUser(message = "username already exists")
 	private String username;
 
-	// bi-directional many-to-one association to Order
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	private List<Order> orders;
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="user1")
+	private List<Order> orders1;
 
-	// bi-directional many-to-one association to Role
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="user2")
+	private List<Order> orders2;
+
+	//bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name = "roles_id")
+	@JoinColumn(name="roles_id")
 	private Role role;
 
-	// bi-directional many-to-one association to Wishlist
-	@OneToMany(mappedBy = "user")
+	//bi-directional many-to-one association to Wishlist
+	@OneToMany(mappedBy="user")
 	private List<Wishlist> wishlists;
 
 	public User() {
@@ -102,13 +108,11 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-		
-
-	public int getActive() {
-		return active;
+	public byte getActive() {
+		return this.active;
 	}
 
-	public void setActive(int active) {
+	public void setActive(byte active) {
 		this.active = active;
 	}
 
@@ -208,6 +212,14 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
+	public String getSocialSecurity() {
+		return this.socialSecurity;
+	}
+
+	public void setSocialSecurity(String socialSecurity) {
+		this.socialSecurity = socialSecurity;
+	}
+
 	public String getState() {
 		return this.state;
 	}
@@ -224,26 +236,48 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public List<Order> getOrders() {
-		return this.orders;
+	public List<Order> getOrders1() {
+		return this.orders1;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public void setOrders1(List<Order> orders1) {
+		this.orders1 = orders1;
 	}
 
-	public Order addOrder(Order order) {
-		getOrders().add(order);
-		order.setUser(this);
+	public Order addOrders1(Order orders1) {
+		getOrders1().add(orders1);
+		orders1.setUser1(this);
 
-		return order;
+		return orders1;
 	}
 
-	public Order removeOrder(Order order) {
-		getOrders().remove(order);
-		order.setUser(null);
+	public Order removeOrders1(Order orders1) {
+		getOrders1().remove(orders1);
+		orders1.setUser1(null);
 
-		return order;
+		return orders1;
+	}
+
+	public List<Order> getOrders2() {
+		return this.orders2;
+	}
+
+	public void setOrders2(List<Order> orders2) {
+		this.orders2 = orders2;
+	}
+
+	public Order addOrders2(Order orders2) {
+		getOrders2().add(orders2);
+		orders2.setUser2(this);
+
+		return orders2;
+	}
+
+	public Order removeOrders2(Order orders2) {
+		getOrders2().remove(orders2);
+		orders2.setUser2(null);
+
+		return orders2;
 	}
 
 	public Role getRole() {

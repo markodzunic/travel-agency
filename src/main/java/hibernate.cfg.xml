@@ -4,26 +4,11 @@
 <hibernate-configuration>
  <session-factory name="">
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/travel_agency</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/t_agency</property>
   <property name="hibernate.connection.username">root</property>
   <property name="hibernate.enable_lazy_load_no_trans">true</property>
-  <mapping class="com.travel.agency.entities.Apartment"/>
+  <mapping class="com.travel.agency.entities.Accommodation"/>
   <mapping class="com.travel.agency.entities.City"/>
   <mapping class="com.travel.agency.entities.Company"/>
-  <mapping class="com.travel.agency.entities.Contact"/>
-  <mapping class="com.travel.agency.entities.Country"/>
-  <mapping class="com.travel.agency.entities.Image"/>
-  <mapping class="com.travel.agency.entities.ImagesApartment"/>
-  <mapping class="com.travel.agency.entities.Order"/>
-  <mapping class="com.travel.agency.entities.OrderApartment"/>
-  <mapping class="com.travel.agency.entities.Role"/>
-  <mapping class="com.travel.agency.entities.SubtypeRoom"/>
-  <mapping class="com.travel.agency.entities.SubtypeService"/>
-  <mapping class="com.travel.agency.entities.Transport"/>
-  <mapping class="com.travel.agency.entities.Type"/>
-  <mapping class="com.travel.agency.entities.User"/>
-  <mapping class="com.travel.agency.entities.Wishlist"/>
-  <mapping class="com.travel.agency.entities.WishlistApartment"/>
-  
  </session-factory>
 </hibernate-configuration>

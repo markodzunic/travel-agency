@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.travel.agency.entities.City;
 import com.travel.agency.entities.Country;
-import com.travel.agency.entities.SubtypeRoom;
+
 import com.travel.agency.entities.Type;
-import com.travel.agency.services.SubtypeRoomService;
+
 import com.travel.agency.services.TypeService;
 import com.travel.agency.utils.BikeUtils;
 
@@ -33,8 +33,7 @@ public class TypeController {
 	@Autowired
 	TypeService typeService;
 	
-	@Autowired
-	SubtypeRoomService subtypeRoomService;
+
 	
 	
 	@GetMapping("/types")
@@ -48,21 +47,21 @@ public class TypeController {
 	}
 	
 	
-	
-	
-	   //play button 
-	
-		@GetMapping("types/{id}")
-		public String subtype(@PathVariable("id") int id, Model model) {
-			
-			List<SubtypeRoom> city = subtypeRoomService.findAll(); 
-			
-			Type country = typeService.readById(id);
-			model.addAttribute("types", country);
-			model.addAttribute("subtyperooms",city);
-
-			return "subtyperooms/subtyperooms";
-		}
+//	
+//	
+//	   //play button 
+//	
+//		@GetMapping("types/{id}")
+//		public String subtype(@PathVariable("id") int id, Model model) {
+//			
+//
+//			
+//			Type country = typeService.readById(id);
+//			model.addAttribute("types", country);
+//
+//
+//			return "subtyperooms/subtyperooms";
+//		}
 		
 	
 	
@@ -92,7 +91,7 @@ public class TypeController {
 	public Map<String, Object> delete(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException {
 		Type type = typeService.readById(Integer.valueOf(request.getParameter("id")));
 		typeService.delete(type);
-		String [] rel = {"subtyperoom", "subtypeservice"};
+		String [] rel = {"accommodations"};
 
 		return BikeUtils.convertToHashMap(type,rel);
 	

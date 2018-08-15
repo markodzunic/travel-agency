@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.travel.agency.entities.City;
 import com.travel.agency.entities.Country;
+import com.travel.agency.entities.Region;
 import com.travel.agency.services.CityService;
 import com.travel.agency.services.CountryService;
+import com.travel.agency.services.RegionService;
 import com.travel.agency.utils.BikeUtils;
 
 @Controller
@@ -30,6 +32,9 @@ public class CitiesController {
 	
 	@Autowired
 	CountryService countryService;
+	
+	@Autowired
+	RegionService regionService;
 	
 	@Autowired
 	CityService cityService;
@@ -71,7 +76,7 @@ public class CitiesController {
 		public Map<String, Object> deleteC(HttpServletRequest request, Model model) throws IllegalArgumentException, IllegalAccessException {
 			City city = cityService.readById(Integer.valueOf(request.getParameter("id")));
 			cityService.delete(city);
-			String [] rel = {"country","apartments"};
+			String [] rel = {"country","region","accommodations"};
 		
 					
 			return BikeUtils.convertToHashMap(city,rel);
@@ -86,8 +91,10 @@ public class CitiesController {
 		public String cityCreate(Model model) {
 			City city = new City();
 			List<Country> country = countryService.findAll();
+			List<Region> region = regionService.findAll();
 
 			model.addAttribute("countries", country);
+			model.addAttribute("regions",region);
 			model.addAttribute("city", city);
 			model.addAttribute("path", "/cities/create");
 
@@ -99,11 +106,13 @@ public class CitiesController {
 		public String cCreate(@Valid @ModelAttribute City c, BindingResult bd, Model model) {
 			
 			List<Country> countries = countryService.findAll();
+			List<Region> region = regionService.findAll();
 			
 			if (bd.hasErrors()) {
 				System.out.println("errors");
 				model.addAttribute("city", c);
 				model.addAttribute("countries", countries);
+				model.addAttribute("regions",region);
 				model.addAttribute("path", "cities/create");
 	            return "cities/city-form";
 	        }
@@ -125,10 +134,12 @@ public class CitiesController {
 		@GetMapping("cities/update/{id}")
 		public String cityUpdate(@PathVariable("id") int id,Model model) {
 			
+			List<Region> region = regionService.findAll();
 		List<Country> country = countryService.findAll();
 		City c = cityService.readById(Integer.valueOf(id));
 			
 		model.addAttribute("city", c);
+		model.addAttribute("regions",region);
 		model.addAttribute("path","/cities/update/" + id);
 		model.addAttribute("countries", country);
 		
@@ -142,10 +153,12 @@ public class CitiesController {
 		@PostMapping("cities/update/{id}")
 		public String updateCity(@Valid @ModelAttribute City c, BindingResult bd, Model model) {
 			List<Country> country = countryService.findAll();
+			List<Region> region = regionService.findAll();
 			
 			if (bd.hasErrors()) {
 				model.addAttribute("city", c);
 				model.addAttribute("countries",country);
+				model.addAttribute("regions",region);
 				model.addAttribute("path", "/cities/update/"+c.getId());
 	            return "cities/city-form";
 	        }
