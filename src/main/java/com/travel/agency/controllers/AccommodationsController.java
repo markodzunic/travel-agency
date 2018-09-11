@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.travel.agency.entities.Accommodation;
 import com.travel.agency.entities.City;
 import com.travel.agency.entities.Company;
-
+import com.travel.agency.entities.Image;
 import com.travel.agency.entities.Type;
 import com.travel.agency.services.AccommodationService;
 import com.travel.agency.services.CityService;
@@ -53,6 +53,11 @@ public class AccommodationsController {
 	public String subtypes(Model model) {
 		List<Accommodation> acc= accommodationService.findAll();
 		model.addAttribute("accommodations",acc);
+		for (Accommodation a: acc ) {
+			for (Image i : a.getImages()) {
+				System.out.println(i.getName());
+			}
+		}
 		return "accommodations/accommodations";
 				
 	}
