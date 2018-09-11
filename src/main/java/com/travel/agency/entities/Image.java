@@ -43,13 +43,13 @@ public class Image implements Serializable {
 
 	private String path;
 	
+	@ManyToMany(mappedBy = "images")
 	private List<Accommodation> accommodations;
 	
 	//bi-directional many-to-one association to ImagesAccommodation
 	@OneToMany(mappedBy="image")
 	private List<ImagesAccommodation> imagesAccommodations;
 	
-	@ManyToMany(mappedBy = "images")
     public List<Accommodation> getAccommodations() {
         return accommodations;
     }
